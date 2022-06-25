@@ -1,0 +1,48 @@
+﻿@using HotelBooking.Models.DTO
+@model Room
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var d = "data:image/jpeg;base64," +
+              Convert.ToBase64String(Model.RoomImage, 0, Model.RoomImage.Length);
+}
+
+
+
+
+<img src="@d" alt="" class="" style="width: 100px;height: 100px;">
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>RoomNumber</th>
+        <td>@Model.RoomNumber</td>
+    </tr>
+    <tr>
+        <th>RoomTypeRefID</th>
+        <td>@Model.type.RoomType</td>
+    </tr>
+    <tr>
+        <th>RoomLevel</th>
+        <td>@Model.RoomLevel</td>
+    </tr>
+    <tr>
+        <th>RoomPrice</th>
+        <td>@Model.RoomPrice.ToString("C0")</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>@Model.Description</td>
+    </tr>
+
+</table>
+
+
+<form method="post" asp-action="DeleteLocation">
+    <input type="hidden" asp-for="@Model.ID" />
+    <button type="submit" class="btn btn-danger">Yes</button>
+    &nbsp;&nbsp;
+    <a class="btn btn-warning" asp-action="Search">No</a>
+</form>
+
