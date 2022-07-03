@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VHotel.DataAccess.Model
+namespace staticclassmodel.DataAccess.Model.Master
 {
     [Table("RoomDetails", Schema = "RoomDetails")]
     [Index(nameof(RoomNumber), IsUnique = true)]
@@ -12,7 +12,7 @@ namespace VHotel.DataAccess.Model
         public int RoomTypeRefID { get; set; }
         [ForeignKey(nameof(RoomTypeRefID))]
         public Type type { get; set; } = null!;
-        public byte[] RoomImage { get; set; } = null!;
+        public byte[]? RoomImage { get; set; } = null!;
         public int RoomLevel { get; set; }
         [Column(TypeName = "decimal(10,2)")]
         public decimal RoomPrice { get; set; }

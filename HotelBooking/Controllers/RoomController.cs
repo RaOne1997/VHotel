@@ -36,10 +36,20 @@ namespace HotelBooking.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(Room rooms)
+        public async Task<IActionResult> Create(RoomInsert rooms)
         {
+            foreach (var file in Request.Form.Files)
+            {
 
-          
+
+                using (var ms = new MemoryStream())
+                {
+                    file.CopyTo(ms);
+                    rooms.RoomImage = ms.ToArray();
+                }
+            }
+
+
 
             var room = await _roomServices.CreatAsync(rooms);
             if (room)

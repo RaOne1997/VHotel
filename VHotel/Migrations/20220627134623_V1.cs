@@ -9,7 +9,6 @@ namespace VHotel.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
             migrationBuilder.EnsureSchema(
                 name: "Location");
 
@@ -23,32 +22,13 @@ namespace VHotel.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CountryID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CountryID = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CountryCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CountryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CountryMaster", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoomDetails",
-                schema: "RoomDetails",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoomNumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoomTypeRefID = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoomImage = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    RoomLevel = table.Column<int>(type: "int", nullable: false),
-                    RoomPrice = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoomDetails", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,7 +52,7 @@ namespace VHotel.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StateID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    StateID = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StateName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CountryrefID = table.Column<int>(type: "int", nullable: false)
                 },
@@ -89,6 +69,32 @@ namespace VHotel.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RoomDetails",
+                schema: "RoomDetails",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoomNumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoomTypeRefID = table.Column<int>(type: "int", nullable: false),
+                    RoomImage = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    RoomLevel = table.Column<int>(type: "int", nullable: false),
+                    RoomPrice = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoomDetails", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_RoomDetails_RoomTypes_RoomTypeRefID",
+                        column: x => x.RoomTypeRefID,
+                        principalSchema: "RoomDetails",
+                        principalTable: "RoomTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "hotels",
                 columns: table => new
                 {
@@ -96,6 +102,10 @@ namespace VHotel.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HotelId = table.Column<int>(type: "int", nullable: false),
+                    checkout = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    checkin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    GaustNo = table.Column<int>(type: "int", nullable: false),
+                    RoomtypeRef = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StaterefID = table.Column<int>(type: "int", nullable: false),
                     CountryRefID = table.Column<int>(type: "int", nullable: false),
@@ -114,6 +124,13 @@ namespace VHotel.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
+                        name: "FK_hotels_RoomTypes_RoomtypeRef",
+                        column: x => x.RoomtypeRef,
+                        principalSchema: "RoomDetails",
+                        principalTable: "RoomTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
                         name: "FK_hotels_StateMaster_StaterefID",
                         column: x => x.StaterefID,
                         principalSchema: "Location",
@@ -123,16 +140,14 @@ namespace VHotel.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CountryMaster_CountryID",
-                schema: "Location",
-                table: "CountryMaster",
-                column: "CountryID",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_hotels_CountryRefID",
                 table: "hotels",
                 column: "CountryRefID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_hotels_RoomtypeRef",
+                table: "hotels",
+                column: "RoomtypeRef");
 
             migrationBuilder.CreateIndex(
                 name: "IX_hotels_StaterefID",
@@ -147,6 +162,12 @@ namespace VHotel.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_RoomDetails_RoomTypeRefID",
+                schema: "RoomDetails",
+                table: "RoomDetails",
+                column: "RoomTypeRefID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RoomTypes_RoomType",
                 schema: "RoomDetails",
                 table: "RoomTypes",
@@ -158,13 +179,6 @@ namespace VHotel.Migrations
                 schema: "Location",
                 table: "StateMaster",
                 column: "CountryrefID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StateMaster_StateID",
-                schema: "Location",
-                table: "StateMaster",
-                column: "StateID",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -177,12 +191,12 @@ namespace VHotel.Migrations
                 schema: "RoomDetails");
 
             migrationBuilder.DropTable(
-                name: "RoomTypes",
-                schema: "RoomDetails");
-
-            migrationBuilder.DropTable(
                 name: "StateMaster",
                 schema: "Location");
+
+            migrationBuilder.DropTable(
+                name: "RoomTypes",
+                schema: "RoomDetails");
 
             migrationBuilder.DropTable(
                 name: "CountryMaster",

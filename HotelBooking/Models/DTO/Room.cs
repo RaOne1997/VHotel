@@ -10,7 +10,7 @@ namespace HotelBooking.Models.DTO
         public string RoomNumber { get; set; } = null!;
         public int RoomTypeRefID { get; set; }
 
-        public byte[]? RoomImage { get; set; }
+        public byte[]?RoomImage { get; set; }
 
         public int RoomLevel { get; set; }
         public Type? type { get; set; }
@@ -26,7 +26,7 @@ namespace HotelBooking.Models.DTO
         public string RoomNumber { get; set; } = null!;
         public int RoomTypeRefID { get; set; }
 
-  
+        public byte[]? RoomImage { get; set; }
 
         public int RoomLevel { get; set; }
 

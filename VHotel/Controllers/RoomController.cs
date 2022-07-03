@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using staticclassmodel.DataAccess.Model.Master;
 using VHotel.DataAccess;
 using VHotel.DataAccess.Model;
 

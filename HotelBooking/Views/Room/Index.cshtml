@@ -33,7 +33,7 @@
             <td><img src="@d" alt="" class="" style="width: 100px;height: 100px;"></td>
             <td>@item.RoomLevel</td>
             <td>@item.RoomPrice.ToString("C0")</td>
-            <td>@item.Description.Substring(0,100)</td>
+            <td>@item.Description</td>
             <td> <a class="btn bg-primary text-white" asp-area="" asp-controller="Room" asp-action="Details" asp-route-id="@item.ID">Details</a></td>
           
         </tr>

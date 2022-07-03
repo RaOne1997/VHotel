@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VHotel.DataAccess.Model;
+using staticclassmodel.DataAccess.Model.Master;
 
 namespace VHotel.DataAccess
 {
@@ -13,10 +13,8 @@ namespace VHotel.DataAccess
 
         public async Task<List<Room>> GetTaskAsync()
         {
-
+        
             return await _vhotelsSQLContex.rooms.Include("type").ToListAsync();
-
-
         }
 
 

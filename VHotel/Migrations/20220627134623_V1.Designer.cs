@@ -12,8 +12,8 @@ using VHotel.DataAccess;
 namespace VHotel.Migrations
 {
     [DbContext(typeof(VhotelsSQLContex))]
-    [Migration("20220625123902_V3")]
-    partial class V3
+    [Migration("20220627134623_V1")]
+    partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,16 +38,13 @@ namespace VHotel.Migrations
 
                     b.Property<string>("CountryID")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CountryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CountryID")
-                        .IsUnique();
 
                     b.ToTable("CountryMaster", "Location");
                 });
@@ -65,7 +62,7 @@ namespace VHotel.Migrations
 
                     b.Property<string>("StateID")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StateName")
                         .IsRequired()
@@ -74,9 +71,6 @@ namespace VHotel.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CountryrefID");
-
-                    b.HasIndex("StateID")
-                        .IsUnique();
 
                     b.ToTable("StateMaster", "Location");
                 });
@@ -137,6 +131,9 @@ namespace VHotel.Migrations
                     b.Property<int>("Pincode")
                         .HasColumnType("int");
 
+                    b.Property<int>("RoomtypeRef")
+                        .HasColumnType("int");
+
                     b.Property<int>("StaterefID")
                         .HasColumnType("int");
 
@@ -149,6 +146,8 @@ namespace VHotel.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CountryRefID");
+
+                    b.HasIndex("RoomtypeRef");
 
                     b.HasIndex("StaterefID");
 
@@ -213,6 +212,12 @@ namespace VHotel.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Type", "type")
+                        .WithMany()
+                        .HasForeignKey("RoomtypeRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("State", "state")
                         .WithMany()
                         .HasForeignKey("StaterefID")
@@ -222,17 +227,19 @@ namespace VHotel.Migrations
                     b.Navigation("country");
 
                     b.Navigation("state");
+
+                    b.Navigation("type");
                 });
 
             modelBuilder.Entity("VHotel.DataAccess.Model.Room", b =>
                 {
-                    b.HasOne("Type", "Type")
+                    b.HasOne("Type", "type")
                         .WithMany()
                         .HasForeignKey("RoomTypeRefID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Type");
+                    b.Navigation("type");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using staticclassmodel.DataAccess.Model.Master;
 using VHotel.DataAccess;
-using VHotel.DataAccess.Model;
+using VHotel.DataAccess.DTo;
 
 namespace VHotel.Controllers
 {
@@ -86,13 +88,32 @@ namespace VHotel.Controllers
 
         // POST: api/Rooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
+
         [HttpPost]
-        public async Task<ActionResult<Room>> PostRoom(Room room)
+        [Consumes("multipart/form-data")]
+        public async Task<ActionResult<Room>> PostRoom([FromForm] RoomDTO roomdto)
         {
           if (_context.rooms == null)
           {
               return Problem("Entity set 'VhotelsSQLContex.rooms'  is null.");
           }
+
+            await using var memoryStream = new MemoryStream();
+            await roomdto.RoomImage.CopyToAsync(memoryStream);
+            memoryStream.ToArray();
+
+            var room = new Room
+            {
+                RoomNumber = roomdto.RoomNumber,
+                RoomTypeRefID = roomdto.RoomTypeRefID,
+                RoomImage = memoryStream.ToArray(),
+                RoomLevel = roomdto.RoomLevel,
+                Description = roomdto.Description,
+
+
+            };
+            
             _context.rooms.Add(room);
             await _context.SaveChangesAsync();
 

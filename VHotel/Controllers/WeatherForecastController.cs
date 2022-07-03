@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VHotel.DataAccess;
 
 namespace VHotel.Controllers
@@ -13,20 +14,20 @@ namespace VHotel.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IRoomServices _room;
+        public readonly VhotelsSQLContex _vhotelsSQLContex;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger,
-            IRoomServices room
+
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, VhotelsSQLContex vhotelsSQLContex
             )
         {
             _logger = logger;
-            _room = room;
-          
+            _vhotelsSQLContex = vhotelsSQLContex;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public async Task<IEnumerable<WeatherForecast>> GetAsync()
         {
+
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

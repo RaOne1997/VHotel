@@ -1,4 +1,4 @@
-﻿using VHotel.DataAccess.Model;
+﻿using staticclassmodel.DataAccess.Model.Master;
 
 namespace VHotel.DataAccess
 {

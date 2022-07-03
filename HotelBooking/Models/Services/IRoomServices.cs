@@ -7,6 +7,6 @@ namespace HotelBooking.Models.Services
         Task<List<Room>> GetallAsync();
         Task<Room> GetbyID(int? id);
         Task DeleteAsync(int id);
-        Task<bool> CreatAsync(Room room);
+        Task<bool> CreatAsync(RoomInsert room);
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
-[Table("StateMaster", Schema = "Location")]
-[Index(nameof(StateID), IsUnique = true)]
+[Table("StateMaster", Schema = "MasterData")]
+
 public class State
 {
     public int Id { get; set; }

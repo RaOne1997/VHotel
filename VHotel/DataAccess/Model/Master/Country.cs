@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
-[Table("CountryMaster", Schema = "Location")]
+[Table("CountryMaster", Schema = "MasterData")]
 
-[Index(nameof(CountryID), IsUnique = true)]
+
 public class Country
 {
     public int Id { get; set; }

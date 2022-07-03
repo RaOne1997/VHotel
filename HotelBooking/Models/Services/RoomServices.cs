@@ -28,10 +28,12 @@ namespace HotelBooking.Models.Services
         }
 
 
-        public async Task<bool> CreatAsync(Room room)
+        public async Task<bool> CreatAsync(RoomInsert room)
         {
             
             var usri = new Uri($"https://localhost:7024/api/Rooms");
+
+            //Convert.ToBase64String(room.RoomImage, 0, room.RoomImage.Length);
 
             var dept = JsonConvert.SerializeObject(room);
             var containt = new StringContent(dept, Encoding.UTF8, "application/json");
