@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
+
 namespace staticclassmodel.DataAccess.Model.Master
 {
     [Table("AirlineDetails", Schema = "Master")]
-    public class AirlineDetails
+    public class AirlineDetails : DataModelBase
     {
-        [Key]
-        public int Id { get; set; }
+       
         public string AirlineName { get; set; }= null!;
         public string ShortName { get; set; } = null!;
         public byte[]? AirlineLogo { get; set; }

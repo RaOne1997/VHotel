@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace staticclassmodel.DataAccess.Model.Master
 {
     [Table("RoomDetails", Schema = "RoomDetails")]
     [Index(nameof(RoomNumber), IsUnique = true)]
-    public class Room
+    public class Room : DataModelBase
     {
-        public int ID { get; set; }
+      
         public string RoomNumber { get; set; } = null!;
         public int RoomTypeRefID { get; set; }
         [ForeignKey(nameof(RoomTypeRefID))]

@@ -3,9 +3,9 @@
 namespace staticclassmodel.DataAccess.Model.Master
 {
     [Table("Flight")]
-    public class Flight
+    public class Flight: DataModelBase
     {
-        public int Id { get; set; }
+      
         public string FlightCode { get; set; } = null!;
         public int AirlineRefId { get; set; }
         [ForeignKey(nameof(AirlineRefId))]

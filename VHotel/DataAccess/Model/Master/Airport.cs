@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace staticclassmodel.DataAccess.Model.Master
 {
     [Table("Airport", Schema = "RoomDetails")]
@@ -10,10 +11,9 @@ namespace staticclassmodel.DataAccess.Model.Master
     [Index(nameof(Telephone2), IsUnique = true)]
     [Index(nameof(Email1), IsUnique = true)]
     [Index(nameof(Email2public), IsUnique = true)]
-    public class Airport
+    public class Airport : DataModelBase
     {
-        [Key]
-        public int Id { get; set; }
+    
         public string AirportName { get; set; } = null!;
         public string AirportCode { get; set; } = null!;
         public string Address1 { get; set; } = null!;

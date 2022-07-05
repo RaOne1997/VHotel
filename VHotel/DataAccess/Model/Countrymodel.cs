@@ -1,4 +1,6 @@
-﻿    namespace staticclassmodel.DataAccess.Model
+﻿using staticclassmodel.DataAccess.Model.Master;
+
+namespace staticclassmodel.DataAccess.Model
 {
     public class Countrymodel
     {

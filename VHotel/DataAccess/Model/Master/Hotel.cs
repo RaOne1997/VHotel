@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace staticclassmodel.DataAccess.Model.Master
 {
     [Table("Hotel", Schema = "Hotels")]
-    public class Hotel
+    public class Hotel: DataModelBase
     {
-        [Key]
-        public int Id { get; set; }
+     
         public string Name { get; set; } = null!;
         public int HotelId { get; set; }
         public byte[]? HotelImage { get; set; }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using staticclassmodel.DataAccess.Model.Master;
+using VHotel.DataAccess.DTo;
 
 namespace VHotel.DataAccess
 {
@@ -27,5 +28,8 @@ namespace VHotel.DataAccess
             : base(options)
         {
         }
+
+
+       
     }
 }
