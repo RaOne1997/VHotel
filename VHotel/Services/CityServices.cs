@@ -48,16 +48,30 @@ namespace VHotel.Services
         public async Task<CityMasterdto?> GetByIdAsync(int id)
         {
             var city = await _CityRepository.GetByIdAsync<CityMasterdto>(id);
-          
+
 
             var cityDTO = _mapper.Map<CityMasterdto>(city);
 
             return cityDTO;
         }
 
-        public Task UpdateAsync(CityMasterdto cityMasterdto)
+        public async Task UpdateAsync(CityMasterdto cityMasterdto)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+              if(  await _CityRepository.Exists((int)cityMasterdto.ID))
+                {
+                    var cityMaster = _mapper.Map<CityMaster>(cityMasterdto);
+                    await _CityRepository.UpdateAsync(cityMaster);
+
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+       
         }
     }
 }

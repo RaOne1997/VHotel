@@ -7,6 +7,7 @@ namespace VHotel.DataAccess.DTo
         
         public string CityName { get; set; } = null!;
         public int stateRefID { get; set; }
+        public string? stateName { get; set; }
 
     }
 

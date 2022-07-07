@@ -15,12 +15,12 @@ var connectionstring = builder.Configuration.GetConnectionString("VhotelSQL");
 builder.Services.AddDbContext<VhotelsSQLContex>(options => options.UseSqlServer(connectionstring));
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
-//builder.Services.AddScoped<IRoomServices, RoomServices>();
+builder.Services.AddScoped<IRoomServices, RoomServices>();
 builder.Services.AddScoped<ICityServices, CityServices>();
-//builder.Services.AddScoped<IStateServices, StateServices>();
+builder.Services.AddScoped<IStateServices, StateServices>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
-//builder.Services.AddScoped<IStateRepository, StateRepository>();
-//builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IStateRepository, StateRepository>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

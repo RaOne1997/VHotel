@@ -9,7 +9,8 @@ namespace VHotel.DataAccess.DTo
         public int RoomTypeRefID { get; set; }
 
 
-        public IFormFile? RoomImages { get; set; }
+        public IFormFile? RoomImagesUplode { get; set; }
+        public byte[]? RoomImage { get; set; }
         public int RoomLevel { get; set; }
 
         public decimal RoomPrice { get; set; }

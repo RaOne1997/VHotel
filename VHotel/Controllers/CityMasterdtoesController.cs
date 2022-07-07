@@ -61,20 +61,25 @@ namespace VHotel.Controllers
 
         // PUT: api/CityMasterdtoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCityMasterdto(int id, CityMasterdto cityMasterdto)
+        [HttpPut]
+        public async Task<IActionResult> PutCityMasterdto(CityMasterdto cityMasterdto)
         {
-            
+            try
+            {
+                await _cityServices.UpdateAsync(cityMasterdto);
+                return Ok("Update");
+            }catch(Exception ex)
+            {
 
-            var department = await _cityServices.GetByIdAsync((int)id);
-         return Ok(department);
+                return BadRequest(ex.Message);
+            }
             
         }
 
         // POST: api/CityMasterdtoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CityMasterdto>> PostCityMasterdto(CityMasterdto cityMasterdto)
+        public async Task<ActionResult<CityMasterdto>> PostCityMasterdto([FromForm]CityMasterdto cityMasterdto)
         {
             if (ModelState.IsValid)
             {

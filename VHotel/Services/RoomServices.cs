@@ -1,47 +1,77 @@
 ﻿using AutoMapper;
+using staticclassmodel.DataAccess.Model.Master;
 using VHotel.DataAccess.DTo;
+using VHotel.RepositoryPattern;
 
 namespace VHotel.Services
 {
     public class RoomServices : IRoomServices
     {
-        private readonly IRoomServices _RoomServices;
+        private readonly IRoomRepository _RoomServices;
         private readonly IMapper _mapper;
 
-        public RoomServices(IRoomServices roomServices,IMapper mapper)
+        public RoomServices(IRoomRepository roomServices, IMapper mapper)
         {
             _RoomServices = roomServices;
-            _mapper=mapper;
+            _mapper = mapper;
         }
 
-        public Task CreateAsync(RoomDTO roomDTO)
+        public async Task CreateAsync(RoomDTO roomDTO)
         {
-            throw new NotImplementedException();
+            await using var memorystring = new MemoryStream();
+            await roomDTO.RoomImagesUplode.CopyToAsync(memorystring);
+            roomDTO.RoomImage = memorystring.ToArray();
+
+            var room = _mapper.Map<Room>(roomDTO);
+            await _RoomServices.CreateAsync(room); ;
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            if (await _RoomServices.Exists(id))
+            {
+                await _RoomServices.DeleteAsync(id);
+            }
+
         }
 
         public Task<bool> Exists(int id)
         {
-            throw new NotImplementedException();
+            return _RoomServices.Exists(id);
         }
 
-        public Task<List<RoomDTO>> GetAllAsync()
+        public async Task<List<RoomDTO>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var citys = await _RoomServices.GetAllAsync<RoomDTO>();
+
+            var cityMasterdtos = citys
+                .Select(d => _mapper.Map<RoomDTO>(d))
+                .ToList();
+
+            return cityMasterdtos;
         }
 
-        public Task<RoomDTO?> GetByIdAsync(int id)
+        public async Task<RoomDTO?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _RoomServices.GetByIdAsync<RoomDTO>(id);
         }
 
-        public Task UpdateAsync(RoomDTO roomDTO)
+        public async Task UpdateAsync(RoomDTO roomDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                if (await _RoomServices.Exists((int)roomDTO.ID))
+                {
+                    var room = _mapper.Map<Room>(roomDTO);
+                    await _RoomServices.UpdateAsync(room);
+
+                }
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }

@@ -15,5 +15,6 @@ namespace VHotel.RepositoryPattern
             _db = db;
             _mapper = mapper;
         }
+
     }
 }
