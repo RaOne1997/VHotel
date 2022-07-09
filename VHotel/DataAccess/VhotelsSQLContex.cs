@@ -33,8 +33,10 @@ namespace VHotel.DataAccess
             : base(options)
         {
         }
-
-
-
+        public DbSet<VHotel.DataAccess.DTo.FlightBookingDTO> FlightBookingDTO { get; set; }
+        public DbSet<VHotel.DataAccess.DTo.HotelBookingDTO> HotelBookingDTO { get; set; }
+        public DbSet<VHotel.DataAccess.DTo.HotelCustomerDetailDTO> HotelCustomerDetailDTO { get; set; }
+    
+      
     }
 }

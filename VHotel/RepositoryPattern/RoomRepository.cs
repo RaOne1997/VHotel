@@ -2,6 +2,7 @@
 using EmployeeCrud.RepositoryPattern.RepositoryBase;
 using staticclassmodel.DataAccess.Model.Master;
 using VHotel.DataAccess;
+using VHotel.RepositoryPattern.Interface;
 
 namespace VHotel.RepositoryPattern
 {

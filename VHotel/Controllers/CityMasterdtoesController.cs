@@ -8,16 +8,18 @@ using Microsoft.EntityFrameworkCore;
 using VHotel.DataAccess;
 using VHotel.DataAccess.DTo;
 using VHotel.Services;
+using VHotel.Services.Interface;
 
 namespace VHotel.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CityMasterdtoesController : ControllerBase
     {
+       // private readonly ICrudeServices<CityMasterdto> _cityServices;
         private readonly ICityServices _cityServices;
 
-        public CityMasterdtoesController(ICityServices  cityServices)
+        public CityMasterdtoesController(ICityServices cityServices)
         {
             _cityServices = cityServices;
         }
@@ -34,7 +36,7 @@ namespace VHotel.Controllers
             catch (Exception e)
             {
                 //_logger.LogError(e, "Error in GetAll");
-                return Problem("Error in GetAll");
+                return Problem("Error in GetAll"+e);
             }
 
 
@@ -50,6 +52,27 @@ namespace VHotel.Controllers
             }
 
             var department = await _cityServices.GetByIdAsync((int)id);
+
+            if (department == null)
+            {
+                return NotFound();
+            }
+
+            return department;
+        }
+
+
+
+        [HttpGet("{count}")]
+        [ActionName("Get02")]
+        public async Task<ActionResult<List<DropDownViewModel>>> Dropdown(int count)
+        {
+            if (count == null)
+            {
+                return NotFound();
+            }
+
+            var department = await _cityServices.GetDepartmentsForDropDownAsync(count);
 
             if (department == null)
             {

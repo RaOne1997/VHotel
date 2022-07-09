@@ -117,12 +117,8 @@ namespace VHotel.DataAccess
                         StateID = StateCode[i]
                     };
                     states.Add(cont);
-
                 }
-
             }
-
-
             return states;
 
         }

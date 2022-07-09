@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VHotel.DataAccess;
 using VHotel.DataAccess.DTo;
-using VHotel.Services;
+using VHotel.Services.Interface;
 
 namespace VHotel.Controllers
 {

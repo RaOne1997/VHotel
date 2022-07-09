@@ -14,6 +14,9 @@ namespace staticclassmodel.DataAccess.Model.Master
         [ForeignKey(nameof(RoomTypeRefID))]
         public Type type { get; set; } = null!;
         public byte[]? RoomImage { get; set; } = null!;
+        public int? HotelRefID { get; set; }
+        [ForeignKey(nameof(HotelRefID))]
+        public Hotel Hotel { get; set; }
         public int RoomLevel { get; set; }
         [Column(TypeName = "decimal(10,2)")]
         public decimal RoomPrice { get; set; }

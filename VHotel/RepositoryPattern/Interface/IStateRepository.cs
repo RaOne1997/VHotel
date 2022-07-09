@@ -1,12 +1,14 @@
 ﻿using EmployeeCrud.RepositoryPattern.RepositoryBase;
 using staticclassmodel.DataAccess.Model.Master;
+using VHotel.DataAccess.DTo;
 
-namespace VHotel.RepositoryPattern
+namespace VHotel.RepositoryPattern.Interface
 {
     public interface IStateRepository : IRepository<State>
     {
-     
+
         Task<List<State>> GetStateByCont(int contid);
+        Task<List<DropDownViewModel>> GetForDropDownAsync(int contid);
 
     }
 }

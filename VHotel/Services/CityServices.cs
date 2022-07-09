@@ -1,21 +1,25 @@
 ﻿using AutoMapper;
 using staticclassmodel.DataAccess.Model.Master;
 using VHotel.DataAccess.DTo;
-using VHotel.RepositoryPattern;
+using VHotel.RepositoryPattern.Interface;
+using VHotel.Services.Interface;
 
 namespace VHotel.Services
 {
     public class CityServices : ICityServices
     {
         private readonly ICityRepository _CityRepository;
+        private readonly IStateRepository _StateRepository;
         private readonly IMapper _mapper;
 
         public CityServices(
-            ICityRepository CityRepository,
+
+            ICityRepository CityRepository, IStateRepository stateRepository,
             IMapper mapper)
         {
             _CityRepository = CityRepository;
-            _mapper = mapper;
+            _StateRepository = stateRepository;
+         _mapper = mapper;
         }
         public async Task CreateAsync(CityMasterdto cityMasterdto)
         {
@@ -53,6 +57,11 @@ namespace VHotel.Services
             var cityDTO = _mapper.Map<CityMasterdto>(city);
 
             return cityDTO;
+        }
+
+        public async Task<List<DropDownViewModel>> GetDepartmentsForDropDownAsync(int contid)
+        {
+            return await _StateRepository.GetForDropDownAsync(contid);
         }
 
         public async Task UpdateAsync(CityMasterdto cityMasterdto)

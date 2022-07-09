@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VHotel.DataAccess;
 using staticclassmodel.DataAccess.Model.Master;
+using VHotel.DataAccess.DTo;
+using VHotel.Services;
+using VHotel.Services.Interface;
 
 namespace VHotel.Controllers
 {
@@ -14,111 +17,103 @@ namespace VHotel.Controllers
     [ApiController]
     public class CountriesController : ControllerBase
     {
-        private readonly VhotelsSQLContex _context;
+        private readonly ICrudeServices<CountryDTO> _countryServices;
+        private readonly ILogger<CountryDTO> _logger;
 
-        public CountriesController(VhotelsSQLContex context)
+        public CountriesController(ICrudeServices<CountryDTO> countryServices, ILogger<CountryDTO> logger)
         {
-            _context = context;
+            _countryServices = countryServices;
+           _logger = logger;
         }
 
         // GET: api/Countries
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Country>>> Getcountries()
+        public async Task<ActionResult<IEnumerable<CountryDTO>>> Getcountries()
         {
-          if (_context.countries == null)
-          {
-              return NotFound();
-          }
-            return await _context.countries.ToListAsync();
+            try
+            {
+               return await _countryServices.GetAllAsync();
+
+            }catch(Exception ex)
+            {
+                return BadRequest("contact to developer"+ex);
+               
+            }
+         
         }
 
         // GET: api/Countries/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Country>> GetCountry(int id)
+        public async Task<ActionResult<CountryDTO>> GetCountryDTO(int id)
         {
-          if (_context.countries == null)
-          {
-              return NotFound();
-          }
-            var country = await _context.countries.FindAsync(id);
-
-            if (country == null)
+            try
             {
-                return NotFound();
+                return await _countryServices.GetByIdAsync(id);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("contact to developer"+ex);
+
             }
 
-            return country;
         }
 
         // PUT: api/Countries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCountry(int id, Country country)
+        [HttpPut]
+        public async Task<IActionResult> PutCountryDTO(CountryDTO CountryDTO)
         {
-            if (id != country.ID)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(country).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _countryServices.UpdateAsync(CountryDTO);
+                return Ok("Update");
+
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!CountryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest("contact to developer"+ex);
+
             }
 
-            return NoContent();
         }
 
         // POST: api/Countries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Country>> PostCountry(Country country)
+        public async Task<ActionResult<CountryDTO>> PostCountryDTO([FromForm] CountryDTO CountryDTO)
         {
-          if (_context.countries == null)
-          {
-              return Problem("Entity set 'VhotelsSQLContex.countries'  is null.");
-          }
-            _context.countries.Add(country);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCountry", new { id = country.ID }, country);
+            try
+            {
+              await  _countryServices.CreateAsync(CountryDTO);
+                return CreatedAtAction("GetCountryDTO", new { id = CountryDTO.ID }, CountryDTO);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("contact to developer"+ex);
+
+            }
+         
         }
 
         // DELETE: api/Countries/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCountry(int id)
+        public async Task<IActionResult> DeleteCountryDTO(int id)
         {
-            if (_context.countries == null)
+            try
             {
-                return NotFound();
+               await _countryServices.DeleteAsync(id);
+                return Ok("Deleted");
             }
-            var country = await _context.countries.FindAsync(id);
-            if (country == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                return BadRequest("contact to developer"+ex);
+
             }
 
-            _context.countries.Remove(country);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
-        private bool CountryExists(int id)
-        {
-            return (_context.countries?.Any(e => e.ID == id)).GetValueOrDefault();
-        }
+       
     }
 }

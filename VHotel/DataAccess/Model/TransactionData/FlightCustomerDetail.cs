@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace staticclassmodel.DataAccess.Model.TransactionData
 {
     [Table(nameof(FlightCustomerDetail), Schema = "TransactionData")]
-    public class FlightCustomerDetail
+    public class FlightCustomerDetail : DataModelBase
     {
-        public int Id { get; set; }
+     
         public int FlightBookingRefId { get; set; }
         [ForeignKey(nameof(FlightBookingRefId))]
         public FlightBooking flightBooking { get; set; } = null!;

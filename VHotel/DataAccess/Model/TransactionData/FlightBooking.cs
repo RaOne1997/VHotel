@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace staticclassmodel.DataAccess.Model.TransactionData
 {
     [Table(nameof(FlightBooking), Schema = "TransactionData")]
-    public class FlightBooking
+    public class FlightBooking : DataModelBase
     {
-        public int Id { get; set; }
+    
         public int PassengerNameRecord { get; set; }
         public TimeSpan BookingTimeStamp { get; set; }
         public int CustomerRefId { get; set; }

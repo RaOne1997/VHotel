@@ -5,10 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace staticclassmodel.DataAccess.Model.TransactionData
 {
     [Table(nameof(HotelBooking), Schema = "HotelTransactionData")]
-    public class HotelBooking
+    public class HotelBooking : DataModelBase
     {
-        [Key]
-        public int Id { get; set; }
+      
         public int HotelRefId { get; set; }
         [ForeignKey(nameof(HotelRefId))]
         public Hotel hotel { get; set; } = null!;

@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using staticclassmodel.DataAccess.Model.Master;
 using VHotel.DataAccess.DTo;
-using VHotel.RepositoryPattern;
+using VHotel.RepositoryPattern.Interface;
+using VHotel.Services.Interface;
 
 namespace VHotel.Services
 {

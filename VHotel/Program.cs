@@ -2,8 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using staticclassmodel.DataAccess.Model.Master;
 using VHotel;
 using VHotel.DataAccess;
+using VHotel.DataAccess.DTo;
 using VHotel.RepositoryPattern;
+using VHotel.RepositoryPattern.Interface;
 using VHotel.Services;
+using VHotel.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,12 +19,43 @@ builder.Services.AddDbContext<VhotelsSQLContex>(options => options.UseSqlServer(
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddScoped<IRoomServices, RoomServices>();
-builder.Services.AddScoped<ICityServices, CityServices>();
 builder.Services.AddScoped<IStateServices, StateServices>();
+builder.Services.AddScoped<IHotelServices, HotelServices>();
+
+
+builder.Services.AddScoped<ICityServices, CityServices>();
+builder.Services.AddScoped<ICrudeServices<CountryDTO>, CountryServices>();
+builder.Services.AddScoped<ICrudeServices<AmenuitiesDTO>, AmenuitiesServices>();
+builder.Services.AddScoped<ICrudeServices<AirportDTO>, AirportServices>();
+builder.Services.AddScoped<ICrudeServices<HotelAmenitiesLinkDTO>, HotelAmenitiesLinkservices>();
+builder.Services.AddScoped<ICrudeServices<AirlineDetailsDTO>, AirlineServices>();
+builder.Services.AddScoped<ICrudeServices<FlightDTO>, FlightServices>();
+builder.Services.AddScoped<ICrudeServices<CustomersDTO>, CustomersServices>();
+builder.Services.AddScoped<IFilightShedulServices, FlightScheduleServices>();
+builder.Services.AddScoped<ICrudeServices<FlightBookingDTO>, FlightBookingServices>();
+builder.Services.AddScoped<ICrudeServices<HotelBookingDTO>, HotelBookingsServices>();
+builder.Services.AddScoped<ICrudeServices<HotelCustomerDetailDTO>, HotelCustomerDetailServices>();
+
+
+
 builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<IStateRepository, StateRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<IHotelRepository, HotelRepository>();
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+builder.Services.AddScoped<IAmenuitiesRepository, AmenuitiesRepository>();
+builder.Services.AddScoped<IAirportRepository, AirportRepository>();
+builder.Services.AddScoped<IAirlineRepository, AirlineRepository>();
+builder.Services.AddScoped<IFlightRepository, FlightRepository>();
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+builder.Services.AddScoped<IHotelAmenitiesLinkRepository, HotelAmenitiesLinkRepository>();
+builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
+builder.Services.AddScoped<IFlightScheduleRepository, FlightScheduleRepository>();
+builder.Services.AddScoped<IFlightBookingReoposttory, FlightBookingReoposttory>();
+builder.Services.AddScoped<IHotelBookingRepository, HotelBookingRepository>();
+builder.Services.AddScoped<IHotelCustomerDetailRepository, HotelCustomerDetailRepository>();
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

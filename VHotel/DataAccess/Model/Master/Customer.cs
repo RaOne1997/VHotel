@@ -10,6 +10,7 @@ namespace staticclassmodel.DataAccess.Model.Master
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; }= null!;
         public DateTime? DateOfBirth { get; set; }
+        public byte[]? ProfilePhoto { get; set; }
         public string Address1 { get; set; } = null!;
         public string? Address2 { get; set; }
         public string? Address3 { get; set; }
@@ -17,12 +18,12 @@ namespace staticclassmodel.DataAccess.Model.Master
         public int CityRefId { get; set; }
         [ForeignKey(nameof(CityRefId))]
 
-        public CityMaster? CityMaster { get; set; }
+        public CityMaster CityMaster { get; set; }
 
         public int StateRefId { get; set; }
         [ForeignKey(nameof(StateRefId))]
 
-        public State? state { get; set; }
+        public State state { get; set; }
 
         public int CountryRefId { get; set; }
         [ForeignKey(nameof(CountryRefId))]

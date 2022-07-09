@@ -9,13 +9,13 @@ namespace staticclassmodel.DataAccess.Model.Master
         public string FlightCode { get; set; } = null!;
         public int AirlineRefId { get; set; }
         [ForeignKey(nameof(AirlineRefId))]
-        AirlineDetails airlineDetails { get; set; } = null!;
+        public  AirlineDetails airlineDetails { get; set; } = null!;
         public int FromAirportRefId { get; set; }
         [ForeignKey(nameof(AirlineRefId))]
-        Airport airportFrom { get; set; }= null!;
+          Airport airportFrom { get; set; }= null!;
         public int ToAirportRefId { get; set; }
         [ForeignKey(nameof(AirlineRefId))]
-        Airport airportToAirport { get; set; }= null!;
+         Airport airportToAirport { get; set; }= null!;
         
 
     }

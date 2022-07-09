@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VHotel", "VHotel\VHotel.csproj", "{B7CF782E-FC1A-4C71-943B-602A2417DB99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VHotel", "VHotel\VHotel.csproj", "{B7CF782E-FC1A-4C71-943B-602A2417DB99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking", "HotelBooking\HotelBooking.csproj", "{6A7A6153-1AD7-4582-AAD4-AB642538996A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelBooking", "HotelBooking\HotelBooking.csproj", "{6A7A6153-1AD7-4582-AAD4-AB642538996A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TEstCase", "TEstCase", "{DDC15720-482C-4D88-BA3D-773D43EC26EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VhotelTest", "VhotelTest\VhotelTest.csproj", "{6E7A2974-D07E-40C1-8A63-A0078867D1BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +25,16 @@ Global
 		{6A7A6153-1AD7-4582-AAD4-AB642538996A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A7A6153-1AD7-4582-AAD4-AB642538996A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A7A6153-1AD7-4582-AAD4-AB642538996A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E7A2974-D07E-40C1-8A63-A0078867D1BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E7A2974-D07E-40C1-8A63-A0078867D1BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E7A2974-D07E-40C1-8A63-A0078867D1BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E7A2974-D07E-40C1-8A63-A0078867D1BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6E7A2974-D07E-40C1-8A63-A0078867D1BC} = {DDC15720-482C-4D88-BA3D-773D43EC26EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F480A55B-304A-4E9A-B208-58F4AA1516C7}

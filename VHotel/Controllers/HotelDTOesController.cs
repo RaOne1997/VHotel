@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VHotel.DataAccess;
 using VHotel.DataAccess.DTo;
+using VHotel.Services.Interface;
 
 namespace VHotel.Controllers
 {
@@ -14,74 +15,54 @@ namespace VHotel.Controllers
     [ApiController]
     public class HotelDTOesController : ControllerBase
     {
-        private readonly VhotelsSQLContex _context;
+        private readonly IHotelServices _hotelServices;
 
-        public HotelDTOesController(VhotelsSQLContex context)
+        public HotelDTOesController(IHotelServices hotelServices)
         {
-            _context = context;
+            _hotelServices = hotelServices;
         }
 
-        // GET: api/HotelDTOes
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HotelDTO>>> GetHotelDTO()
         {
-            return null;
-            //return await _context.ToListAsync();
+
+            var hotels = await _hotelServices.GetAllAsync();
+            return Ok(hotels);
         }
 
-        // GET: api/HotelDTOes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<HotelDTO>> GetHotelDTO(int? id)
         {
-        
+            var hotel = await _hotelServices.GetByIdAsync((int)id);
 
-            return null;
+            return Ok(hotel);
         }
 
-        // PUT: api/HotelDTOes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotelDTO(int? id, HotelDTO hotelDTO)
+        [HttpPut]
+        public async Task<IActionResult> PutHotelDTO([FromForm]HotelDTO hotelDTO)
         {
-            if (id != hotelDTO.ID)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(hotelDTO).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                
-                
-            }
-
-            return NoContent();
+            await _hotelServices.UpdateAsync(hotelDTO);
+            return Ok("Updated");
         }
 
-        // POST: api/HotelDTOes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
         [HttpPost]
-        public async Task<ActionResult<HotelDTO>> PostHotelDTO(HotelDTO hotelDTO)
+        public async Task<ActionResult<HotelDTO>> PostHotelDTO([FromForm]HotelDTO hotelDTO)
         {
-      
+            await _hotelServices.CreateAsync(hotelDTO);
 
             return CreatedAtAction("GetHotelDTO", new { id = hotelDTO.ID }, hotelDTO);
         }
 
-        // DELETE: api/HotelDTOes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHotelDTO(int? id)
         {
-            
+            await _hotelServices.DeleteAsync((int)id);
 
-            return NoContent();
+            return Ok("Deleted");
         }
 
-      
+
     }
 }

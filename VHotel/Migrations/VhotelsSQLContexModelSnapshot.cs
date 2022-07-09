@@ -34,25 +34,21 @@ namespace VHotel.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("AirlineName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email1")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email2")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("HelplineNumber")
                         .HasColumnType("bigint");
 
                     b.Property<string>("ShortName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("Telephone2")
+                    b.Property<long?>("Telephone2")
                         .HasColumnType("bigint");
 
                     b.HasKey("ID");
@@ -69,66 +65,61 @@ namespace VHotel.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Address1")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address2")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address3")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AirportCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AirportName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CityRefId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email1")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email2public")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PinCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telephone1")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Telephone2")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
                     b.HasIndex("AirportCode")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[AirportCode] IS NOT NULL");
 
                     b.HasIndex("CityRefId");
 
                     b.HasIndex("Email1")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Email1] IS NOT NULL");
 
                     b.HasIndex("Email2public")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Email2public] IS NOT NULL");
 
                     b.HasIndex("Telephone1")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Telephone1] IS NOT NULL");
 
                     b.HasIndex("Telephone2")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Telephone2] IS NOT NULL");
 
                     b.ToTable("Airport", "RoomDetails");
                 });
@@ -141,13 +132,27 @@ namespace VHotel.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                    b.Property<string>("Description1")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Description2")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Description3")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Description4")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Description5")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -165,7 +170,6 @@ namespace VHotel.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("CityName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("stateRefID")
@@ -187,15 +191,12 @@ namespace VHotel.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("CountryCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CountryID")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CountryName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -212,7 +213,6 @@ namespace VHotel.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Address1")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address2")
@@ -231,19 +231,19 @@ namespace VHotel.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email1")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("PinCode")
                         .HasColumnType("bigint");
+
+                    b.Property<byte[]>("ProfilePhoto")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int>("StateRefId")
                         .HasColumnType("int");
@@ -274,7 +274,6 @@ namespace VHotel.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FlightCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FromAirportRefId")
@@ -297,11 +296,9 @@ namespace VHotel.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CountryRefID")
@@ -320,17 +317,12 @@ namespace VHotel.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Landmark")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Pincode")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoomRefID")
                         .HasColumnType("int");
 
                     b.Property<int>("StaterefID")
@@ -345,8 +337,6 @@ namespace VHotel.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("CountryRefID");
-
-                    b.HasIndex("RoomRefID");
 
                     b.HasIndex("StaterefID");
 
@@ -385,8 +375,10 @@ namespace VHotel.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("HotelRefID")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("RoomImage")
                         .HasColumnType("varbinary(max)");
@@ -395,7 +387,6 @@ namespace VHotel.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("RoomNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("RoomPrice")
@@ -406,8 +397,11 @@ namespace VHotel.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("HotelRefID");
+
                     b.HasIndex("RoomNumber")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[RoomNumber] IS NOT NULL");
 
                     b.HasIndex("RoomTypeRefID");
 
@@ -426,11 +420,9 @@ namespace VHotel.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("StateID")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StateName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -442,17 +434,16 @@ namespace VHotel.Migrations
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.TransactionData.FlightBooking", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<TimeSpan>("BookingTimeStamp")
                         .HasColumnType("time");
 
                     b.Property<string>("CustomerContactEmail")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CustomerContactMobile")
@@ -467,7 +458,7 @@ namespace VHotel.Migrations
                     b.Property<int>("PassengerNameRecord")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.HasIndex("CustomerRefId");
 
@@ -478,11 +469,11 @@ namespace VHotel.Migrations
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.TransactionData.FlightCustomerDetail", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<int>("CustomerRefId")
                         .HasColumnType("int");
@@ -490,7 +481,7 @@ namespace VHotel.Migrations
                     b.Property<int>("FlightBookingRefId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.HasIndex("CustomerRefId");
 
@@ -501,11 +492,11 @@ namespace VHotel.Migrations
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.TransactionData.FlightSchedule", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<DateTime?>("ArrivalDate")
                         .HasColumnType("datetime2");
@@ -516,7 +507,7 @@ namespace VHotel.Migrations
                     b.Property<int>("FlightRefId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.HasIndex("FlightRefId");
 
@@ -525,11 +516,11 @@ namespace VHotel.Migrations
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.TransactionData.HotelBooking", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<int>("ConfirmationCode")
                         .HasColumnType("int");
@@ -543,7 +534,7 @@ namespace VHotel.Migrations
                     b.Property<DateTime>("ToDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.HasIndex("HotelRefId");
 
@@ -552,11 +543,11 @@ namespace VHotel.Migrations
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.TransactionData.HotelCustomerDetail", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<int>("CustomerRefId")
                         .HasColumnType("int");
@@ -564,9 +555,11 @@ namespace VHotel.Migrations
                     b.Property<int>("HotelBookingRefId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.HasIndex("CustomerRefId");
+
+                    b.HasIndex("HotelBookingRefId");
 
                     b.ToTable("HotelCustomerDetail", "TransactionData");
                 });
@@ -580,15 +573,90 @@ namespace VHotel.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("RoomType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
                     b.HasIndex("RoomType")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[RoomType] IS NOT NULL");
 
                     b.ToTable("RoomTypes", "RoomDetails");
+                });
+
+            modelBuilder.Entity("VHotel.DataAccess.DTo.FlightBookingDTO", b =>
+                {
+                    b.Property<int?>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ID"), 1L, 1);
+
+                    b.Property<TimeSpan>("BookingTimeStamp")
+                        .HasColumnType("time");
+
+                    b.Property<string>("CustomerContactEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CustomerContactMobile")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerRefId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FlightScheduleRefId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PassengerNameRecord")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("FlightBookingDTO");
+                });
+
+            modelBuilder.Entity("VHotel.DataAccess.DTo.HotelBookingDTO", b =>
+                {
+                    b.Property<int?>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ID"), 1L, 1);
+
+                    b.Property<int>("ConfirmationCode")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FromDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("HotelRefId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ToDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("HotelBookingDTO");
+                });
+
+            modelBuilder.Entity("VHotel.DataAccess.DTo.HotelCustomerDetailDTO", b =>
+                {
+                    b.Property<int?>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ID"), 1L, 1);
+
+                    b.Property<int>("CustomerRefId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HotelBookingRefId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("HotelCustomerDetailDTO");
                 });
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.Airport", b =>
@@ -648,12 +716,6 @@ namespace VHotel.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("staticclassmodel.DataAccess.Model.Master.Room", "room")
-                        .WithMany()
-                        .HasForeignKey("RoomRefID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("staticclassmodel.DataAccess.Model.Master.State", "state")
                         .WithMany()
                         .HasForeignKey("StaterefID")
@@ -661,8 +723,6 @@ namespace VHotel.Migrations
                         .IsRequired();
 
                     b.Navigation("country");
-
-                    b.Navigation("room");
 
                     b.Navigation("state");
                 });
@@ -688,11 +748,17 @@ namespace VHotel.Migrations
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.Room", b =>
                 {
+                    b.HasOne("staticclassmodel.DataAccess.Model.Master.Hotel", "Hotel")
+                        .WithMany()
+                        .HasForeignKey("HotelRefID");
+
                     b.HasOne("Type", "type")
                         .WithMany()
                         .HasForeignKey("RoomTypeRefID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Hotel");
 
                     b.Navigation("type");
                 });
@@ -776,7 +842,15 @@ namespace VHotel.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("staticclassmodel.DataAccess.Model.TransactionData.HotelBooking", "hotelBooking")
+                        .WithMany()
+                        .HasForeignKey("HotelBookingRefId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("customer");
+
+                    b.Navigation("hotelBooking");
                 });
 #pragma warning restore 612, 618
         }

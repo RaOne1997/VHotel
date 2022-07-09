@@ -1,0 +1,77 @@
+﻿using AutoMapper;
+using staticclassmodel.DataAccess.Model.Master;
+using VHotel.DataAccess.DTo;
+using VHotel.RepositoryPattern.Interface;
+using VHotel.Services.Interface;
+
+namespace VHotel.Services
+{
+    public class AirportServices : ICrudeServices<AirportDTO>
+    {
+
+        private readonly IAirportRepository _airportRepository;
+        private readonly IMapper _mapper;
+
+        public AirportServices(
+            IAirportRepository airportRepository,
+            IMapper mapper)
+        {
+            _airportRepository = airportRepository;
+            _mapper = mapper;
+        }
+        public async Task CreateAsync(AirportDTO modelDTO)
+        {
+            var airport = _mapper.Map<Airport>(modelDTO);
+            await _airportRepository.CreateAsync(airport);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _airportRepository.DeleteAsync(id);
+        }
+
+        public async Task<bool> Exists(int id)
+        {
+            return await _airportRepository.Exists(id);
+        }
+
+        public async Task<List<AirportDTO>> GetAllAsync()
+        {
+            var citys = await _airportRepository.GetAllAsync<AirportDTO>();
+
+            var cityMasterdtos = citys
+                .Select(d => _mapper.Map<AirportDTO>(d))
+                .ToList();
+
+            return cityMasterdtos;
+        }
+
+        public async Task<AirportDTO> GetByIdAsync(int id)
+        {
+            var city = await _airportRepository.GetByIdAsync<AirportDTO>(id);
+
+
+            var cityDTO = _mapper.Map<AirportDTO>(city);
+
+            return cityDTO;
+        }
+
+        public async Task UpdateAsync(AirportDTO modelDTO)
+        {
+            try
+            {
+
+                if (await _airportRepository.Exists((int)modelDTO.ID))
+                {
+                    var cityMaster = _mapper.Map<Airport>(modelDTO);
+                    await _airportRepository.UpdateAsync(cityMaster);
+
+                }
+            }
+            catch (Exception)
+            {
+
+            };
+        }
+    }
+}
