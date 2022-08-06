@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MakeMyTrip.Data.Books>
+
+
+@section style{
+    <style>
+        .hov:hover {
+            width: 250px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            cursor: pointer;
+        }
+
+    </style>
+
+}
+
+
+    <div class=" container">
+        <div class="row row-cols-1 row-cols-md-4 g-3 ">
+            @{
+
+            if (Model == null)
+            {
+
+                <H1>NO data Found</H1>
+            }
+            else
+            {
+
+                foreach (var item in Model)
+
+                {
+                    <div class="col">
+                        <div class="card hov h-100 w-75     ">
+                            <img src="@item.image" class="card-img-top" alt="Skyscrapers" />
+                            <div class="card-body">
+                                <h6 class="card-title text-center"><a href="#">@item.title</a></h6>
+                                <p class="card-text text-center">
+                                    @item.price
+
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Last updated 3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+
+    </div>
+</div>
+
+

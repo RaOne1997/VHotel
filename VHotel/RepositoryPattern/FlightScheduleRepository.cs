@@ -45,7 +45,17 @@ namespace VHotel.RepositoryPattern
                     f.flight.ToAirportRefId == locationToRefId &&
                     f.DepartureDate >= filterDateFrom && f.DepartureDate <= filterDateTo);
 
-            var flightsDto = await _mapper.ProjectTo<FlightScheduleDTO>(flightsQuery).ToListAsync();
+
+
+
+
+
+
+             var flightsDto=    await _mapper.ProjectTo<FlightScheduleDTO>(flightsQuery).ToListAsync();
+            if (!flightsDto.Any())
+                return null;
+
+
             return flightsDto;
             }
         }

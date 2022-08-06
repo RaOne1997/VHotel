@@ -6,5 +6,6 @@
         public DateTime DepartureDate { get; set; }
         public DateTime? ArrivalDate { get; set; }
         public string? FlightName { get; set; }
+        public byte[]? Flightlogo { get; set; }
     }
 }

@@ -23,6 +23,9 @@ namespace VHotel.Services
         }
         public async Task CreateAsync(CityMasterdto cityMasterdto)
         {
+           
+
+
             var cityMaster = _mapper.Map<CityMaster>(cityMasterdto);
             await _CityRepository.CreateAsync(cityMaster);
         }
@@ -43,8 +46,10 @@ namespace VHotel.Services
             var citys = await _CityRepository.GetAllAsync<CityMasterdto>();
 
             var cityMasterdtos = citys
-                .Select(d => _mapper.Map<CityMasterdto>(d))
+                .Select(d => _mapper.Map<CityMasterdto>(d)).Skip(0).Take(10)
                 .ToList();
+
+         
 
             return cityMasterdtos;
         }

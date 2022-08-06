@@ -1,0 +1,58 @@
+﻿
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<form asp-action="Index">
+
+    <div class="form-group">
+        <label class="control-label">TYpe</label>
+        <select class="form-control" id="curinc" name="curinc" asp-items="ViewBag.DepartmentRefId" aria-label="Select your country"></select>
+    </div>
+    <button type="submit">convert</button>
+
+
+</form>
+
+
+<h1>
+    INR = 100
+
+
+
+</h1>
+@*<Table class="table">
+    <tr>
+        <th>title</th>
+        <th>subtitle</th>
+        <th>isbn13</th>
+        <th>price</th>
+        <th>image</th>
+        <th>url</th>
+    </tr>
+    <tbody>
+
+
+        @foreach (var item in Model.books)
+        {
+
+            <tr>
+
+
+                <td>@item.title</td>
+                <td>@item.subtitle</td>
+                <td>@item.isbn13</td>
+                <td>@item.price</td>
+                <td><img src="@item.image" /></td>
+                <td>@item.url</td>
+
+            </tr>
+        }
+    </tbody>
+
+
+
+</Table>*@

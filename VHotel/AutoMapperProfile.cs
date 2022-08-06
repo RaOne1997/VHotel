@@ -16,11 +16,13 @@ namespace VHotel
             CreateMap<AirlineDetails, AirlineDetailsDTO>().ReverseMap();
             CreateMap<Customer, CustomersDTO>().ReverseMap();
             CreateMap<FlightSchedule, FlightScheduleDTO>()
+                                .ForMember(evw => evw.FlightName, opt => opt.MapFrom(em => em.flight.airlineDetails.AirlineName))
+                                .ForMember(evw => evw.Flightlogo, opt => opt.MapFrom(em => em.flight.airlineDetails.AirlineLogo))
 
-
-                //.ForMember(evw => evw.FlightName, opt => opt.MapFrom(em => em.flight.FlightCode))
-
-                .ReverseMap();
+                .ReverseMap().ForPath(em => em.flight.airlineDetails.AirlineName, opt => opt.Ignore())
+                .ForPath(em => em.flight.airlineDetails.AirlineLogo, opt => opt.Ignore())
+             
+            ;
 
 
             CreateMap<State, DropDownViewModel>()

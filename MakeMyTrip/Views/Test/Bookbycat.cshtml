@@ -1,0 +1,92 @@
+﻿@model IEnumerable<MakeMyTrip.Data.BookDetailsDTO>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@section style{
+    <style>
+
+        .hhh {
+            border: 1px solid white;
+        }
+
+            .hhh:hover {
+                border: 1px solid blue;
+                cursor: pointer;
+            }
+
+        .ss:hover {
+            text-decoration: underline !important;
+        }
+
+    </style>
+    }
+    <form asp-action="Bookbycat">
+
+        <div class="row mb-5">
+            <div class="col-10">
+
+                <input id="curinc" name="curinc" class="form-control" />
+
+                <input id="pagenumber" name="pagenumber" class="form-control" />
+            </div>
+            <div class="col-2">
+
+                <button type="submit" class="btn btn-success"> Search</button>
+
+            </div>
+        </div>
+    </form>
+    <div class=" container">
+        <div class="row-cols-1 row-cols-md-12 g-5 ">
+            @{
+            if (Model == null)
+            {
+
+                <h1> NO Data Found</h1>
+            }
+            else
+            {
+                foreach (var item in Model)
+
+                {
+                    <div class="col-12 mt-3 mb-3">
+
+                        <div class="row shadow">
+                            <div class="bg-image hhh ripple col-lg-3 col-md-12 " data-mdb-ripple-color="light">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy" asp-route-id="@item.ID">
+                                    <img src="@item.image"  width="100%" />
+                                </a>
+                                
+                            </div>
+                            <div class="col-lg-5 col-md-12">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a  class="text-decoration-none ss"
+                                    asp-controller="Test" asp-action="BookBYID" asp-route-id="@item.ID">@item.title</a></h5>
+                                    <p class="card-text">
+                                        by &nbsp;
+                                        <span class="text-muted fw-bold">@item.authors</span>
+                                    </p>
+
+                                    <p class="card-text">
+                                        @item.desc
+                                    </p>
+                                    <span>
+                                        Price:&nbsp; <span class="text-danger fw-bold">@item.price</span>
+                                    </span>&nbsp;&nbsp; |&nbsp;&nbsp;
+                                    <span>Publisher: &nbsp;@item.publisher</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                    <span>Release:&nbsp;<span class="fw-semibold">@item.year</span></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>
+

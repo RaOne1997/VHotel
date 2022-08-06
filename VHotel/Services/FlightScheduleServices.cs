@@ -45,7 +45,7 @@ namespace VHotel.Services
             return plain;
         }
         public async Task<List<FlightScheduleDTO>> GetAllAsync()
-        {
+          {
             var citys = await _flightScheduleRepository.GetAllAsync<FlightScheduleDTO>();
 
             var cityMasterdtos = citys
