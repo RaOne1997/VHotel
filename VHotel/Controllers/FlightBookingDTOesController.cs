@@ -24,7 +24,7 @@ namespace VHotel.Controllers
 
         // GET: api/AmenuitiesDTOes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FlightBookingDTO>>> GetAmenuitiesDTO()
+        public async Task<ActionResult<IEnumerable<FlightBookingDTO>>> GetFlightBookingDTO()
         {
             try
             {
@@ -46,7 +46,7 @@ namespace VHotel.Controllers
 
         // GET: api/AmenuitiesDTOes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<FlightBookingDTO>> GetAmenuitiesDTO(int? id)
+        public async Task<ActionResult<FlightBookingDTO>> GetFlightBookingDTO(int? id)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace VHotel.Controllers
         // PUT: api/AmenuitiesDTOes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
-        public async Task<IActionResult> PutAmenuitiesDTO(FlightBookingDTO flightBookingDTO)
+        public async Task<IActionResult> PutFlightBookingDTO(FlightBookingDTO flightBookingDTO)
         {
 
             try
@@ -83,10 +83,11 @@ namespace VHotel.Controllers
         // POST: api/AmenuitiesDTOes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<FlightBookingDTO>> PostAmenuitiesDTO(FlightBookingDTO flightBookingDTO)
+        public async Task<ActionResult<FlightBookingDTO>> PostFlightBookingDTO(FlightBookingDTO flightBookingDTO)
         {
             try
             {
+                flightBookingDTO.BookingTimeStamp = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 await _flightBookingservices.CreateAsync(flightBookingDTO);
                 return CreatedAtAction("GetAmenuitiesDTO", new { id = flightBookingDTO.ID }, flightBookingDTO);
 
@@ -102,7 +103,7 @@ namespace VHotel.Controllers
 
         // DELETE: api/AmenuitiesDTOes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAmenuitiesDTO(int? id)
+        public async Task<IActionResult> DeleteFlightBookingDTO(int? id)
         {
             try
             {

@@ -2,6 +2,7 @@
 using staticclassmodel.DataAccess.Model.Master;
 using staticclassmodel.DataAccess.Model.TransactionData;
 using VHotel.DataAccess.DTo;
+using VHotel.DataAccess.Model.TransactionData;
 
 namespace VHotel.DataAccess
 {
@@ -13,6 +14,7 @@ namespace VHotel.DataAccess
         }
 
         public DbSet<Country> countries { get; set; } = null!;
+        public DbSet<Customerinformation> CustomerInformation { get; set; } = null!;
         public DbSet<Hotel> hotels { get; set; } = null!;
         public DbSet<Room> rooms { get; set; } = null!;
         public DbSet<State> states { get; set; } = null!;

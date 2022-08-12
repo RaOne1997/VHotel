@@ -1,17 +1,15 @@
 ﻿using staticclassmodel.DataAccess.Model.Master;
 using System.ComponentModel.DataAnnotations.Schema;
+using VHotel.DataAccess.Model.TransactionData;
 
 namespace staticclassmodel.DataAccess.Model.TransactionData
 {
     [Table(nameof(FlightBooking), Schema = "TransactionData")]
     public class FlightBooking : DataModelBase
     {
-    
-        public int PassengerNameRecord { get; set; }
+
+        public int? PassengerNameRecord { get; set; }
         public TimeSpan BookingTimeStamp { get; set; }
-        public int CustomerRefId { get; set; }
-        [ForeignKey(nameof(CustomerRefId))]
-        public Customer customer { get; set; } = null!;
 
         public int FlightScheduleRefId { get; set; }
         [ForeignKey(nameof(FlightScheduleRefId))]
@@ -19,7 +17,7 @@ namespace staticclassmodel.DataAccess.Model.TransactionData
 
         public int CustomerContactMobile { get; set; }
         public string CustomerContactEmail { get; set; } = null!;
-        //List<FlightCustomerDetail> FlightCustomerDetails)
+        List<Customerinformation> FlightCustomerDetails { get; set; }
 
     }
 

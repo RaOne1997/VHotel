@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VHotel.DataAccess;
 
@@ -11,9 +12,10 @@ using VHotel.DataAccess;
 namespace VHotel.Migrations
 {
     [DbContext(typeof(VhotelsSQLContex))]
-    partial class VhotelsSQLContexModelSnapshot : ModelSnapshot
+    [Migration("20220812092124_change filghtbooking")]
+    partial class changefilghtbooking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,7 +160,7 @@ namespace VHotel.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("amenities", (string)null);
+                    b.ToTable("amenities");
                 });
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.CityMaster", b =>
@@ -259,7 +261,7 @@ namespace VHotel.Migrations
 
                     b.HasIndex("StateRefId");
 
-                    b.ToTable("customers", (string)null);
+                    b.ToTable("customers");
                 });
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.Flight", b =>
@@ -286,7 +288,7 @@ namespace VHotel.Migrations
 
                     b.HasIndex("AirlineRefId");
 
-                    b.ToTable("Flight", (string)null);
+                    b.ToTable("Flight");
                 });
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.Hotel", b =>
@@ -614,7 +616,7 @@ namespace VHotel.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("FlightBookingDTO", (string)null);
+                    b.ToTable("FlightBookingDTO");
                 });
 
             modelBuilder.Entity("VHotel.DataAccess.DTo.HotelBookingDTO", b =>
@@ -639,7 +641,7 @@ namespace VHotel.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("HotelBookingDTO", (string)null);
+                    b.ToTable("HotelBookingDTO");
                 });
 
             modelBuilder.Entity("VHotel.DataAccess.DTo.HotelCustomerDetailDTO", b =>
@@ -658,7 +660,7 @@ namespace VHotel.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("HotelCustomerDetailDTO", (string)null);
+                    b.ToTable("HotelCustomerDetailDTO");
                 });
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.Airport", b =>
