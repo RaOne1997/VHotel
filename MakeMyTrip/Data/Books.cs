@@ -15,6 +15,7 @@ namespace MakeMyTrip.Data
         public string isbn13 { get; set; }
         public string price { get; set; }
         public string image { get; set; }
+      
 
 
     }

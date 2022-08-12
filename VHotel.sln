@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TEstCase", "TEstCase", "{DD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VhotelTest", "VhotelTest\VhotelTest.csproj", "{6E7A2974-D07E-40C1-8A63-A0078867D1BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeMyTrip", "MakeMyTrip\MakeMyTrip.csproj", "{2A7F85E0-B86C-4C64-A577-FD5810B34634}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakeMyTrip", "MakeMyTrip\MakeMyTrip.csproj", "{2A7F85E0-B86C-4C64-A577-FD5810B34634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

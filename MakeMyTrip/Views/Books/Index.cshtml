@@ -29,13 +29,15 @@
                 foreach (var item in Model)
 
                 {
+                 
                     <div class="col">
-                        <div class="card hov h-100 w-75     ">
+                        <div class="card hov h-100 w-75">
                             <img src="@item.image" class="card-img-top" alt="Skyscrapers" />
                             <div class="card-body">
-                                <h6 class="card-title text-center"><a href="#">@item.title</a></h6>
+                                <h6 class="card-title text-center"><a asp-action="Details" asp-route-id="@item.ID">@item.title</a></h6>
                                 <p class="card-text text-center">
                                     @item.price
+                                   
 
                                 </p>
                             </div>
@@ -44,6 +46,7 @@
                             </div>
                         </div>
                     </div>
+                 
                 }
             }
         }

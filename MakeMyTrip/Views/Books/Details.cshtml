@@ -1,0 +1,61 @@
+﻿@using MakeMyTrip.Data
+@model Books
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@section style{
+    <link rel="stylesheet" href="~/css/Details.css">
+}
+
+
+    <div class="row">
+        <div class="col-3 ">
+            <img src="@Model.image" class="card-img-top" alt="Skyscrapers" />
+            <a asp-action="" class="btn btn-block btn1 w-100 mt-5 mb-3" rel="nofollow" target="_blank" title="Buy">Buy</a><br>
+            <a asp-action="" class="btn btn-block bg-secondary w-100" rel="nofollow" target="_blank" title="Buy">Preview</a><br>
+
+
+
+
+        </div>
+
+        <div class="col-9 ">
+            <table class="table table-striped">
+                <tr>
+
+                    <td>Price</td>
+
+                    <td class="color2">
+
+                        <b>@Model.price</b>
+                    </td>
+
+                </tr>
+                <tr><td>Rating</td><td class="nobr"><span class="nobr" title="Without ratings"><img src="/img/star0.png" width="16" height="16" alt="" class="star"><img src="/img/star0.png" width="16" height="16" alt="" class="star"><img src="/img/star0.png" width="16" height="16" alt="" class="star"><img src="/img/star0.png" width="16" height="16" alt="" class="star"><img src="/img/star0.png" width="16" height="16" alt="" class="star"></span></td></tr>
+                <tr><td class="t50">Author</td><td><b></b></td></tr>
+                <tr><td>Publisher</td><td itemprop="publisher" itemtype="http://schema.org/Organization" itemscope><b itemprop="name">Packt Publishing</b></td></tr>
+                <tr><td>Published</td><td><b><a href="https://itbook.store/books/2022" title="IT Books of 2022" style="text-decoration:none">2022</a></b></td></tr>
+                <tr><td>Pages</td><td><b itemprop="numberOfPages">434</b></td></tr>
+                <tr><td>Language</td><td><b itemprop="inLanguage">English</b></td></tr>
+                <tr><td>Format</td><td><b>Paper book / ebook</b> (<b>PDF</b>)</td></tr>
+                <tr><td>ISBN-10</td><td><b itemprop="isbn">1803238305</b></td></tr>
+                <tr><td>ISBN-13</td><td><b itemprop="isbn" id="isbn13">9781803238302</b></td></tr>
+            </table>
+            <div class=" row mt-5 no-gutters">
+                <div class=" col ">Discripation</div>
+                <div class=" col">Auther</div>
+                <div class=" col">Price History</div>
+                <div class=" col">Review</div>
+            </div>
+
+            <spam> @Model.subtitle</spam>
+
+
+
+
+        </div>
+
+    </div>
