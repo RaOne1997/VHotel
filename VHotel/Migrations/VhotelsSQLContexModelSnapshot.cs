@@ -158,7 +158,7 @@ namespace VHotel.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("amenities", (string)null);
+                    b.ToTable("amenities");
                 });
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.CityMaster", b =>
@@ -259,7 +259,7 @@ namespace VHotel.Migrations
 
                     b.HasIndex("StateRefId");
 
-                    b.ToTable("customers", (string)null);
+                    b.ToTable("customers");
                 });
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.Flight", b =>
@@ -286,7 +286,7 @@ namespace VHotel.Migrations
 
                     b.HasIndex("AirlineRefId");
 
-                    b.ToTable("Flight", (string)null);
+                    b.ToTable("Flight");
                 });
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.Hotel", b =>
@@ -451,9 +451,6 @@ namespace VHotel.Migrations
                     b.Property<int>("CustomerContactMobile")
                         .HasColumnType("int");
 
-                    b.Property<int>("CustomerRefId")
-                        .HasColumnType("int");
-
                     b.Property<int>("FlightScheduleRefId")
                         .HasColumnType("int");
 
@@ -461,8 +458,6 @@ namespace VHotel.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("CustomerRefId");
 
                     b.HasIndex("FlightScheduleRefId");
 
@@ -586,79 +581,32 @@ namespace VHotel.Migrations
                     b.ToTable("RoomTypes", "RoomDetails");
                 });
 
-            modelBuilder.Entity("VHotel.DataAccess.DTo.FlightBookingDTO", b =>
+            modelBuilder.Entity("VHotel.DataAccess.Model.TransactionData.Customerinformation", b =>
                 {
-                    b.Property<int?>("ID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<TimeSpan>("BookingTimeStamp")
-                        .HasColumnType("time");
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
 
-                    b.Property<string>("CustomerContactEmail")
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<string>("PassengerName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CustomerContactMobile")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomerRefId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FlightScheduleRefId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PassengerNameRecord")
+                    b.Property<int>("flightBookingRefID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.ToTable("FlightBookingDTO", (string)null);
-                });
+                    b.HasIndex("flightBookingRefID");
 
-            modelBuilder.Entity("VHotel.DataAccess.DTo.HotelBookingDTO", b =>
-                {
-                    b.Property<int?>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ID"), 1L, 1);
-
-                    b.Property<int>("ConfirmationCode")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FromDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("HotelRefId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ToDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("HotelBookingDTO", (string)null);
-                });
-
-            modelBuilder.Entity("VHotel.DataAccess.DTo.HotelCustomerDetailDTO", b =>
-                {
-                    b.Property<int?>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ID"), 1L, 1);
-
-                    b.Property<int>("CustomerRefId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HotelBookingRefId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("HotelCustomerDetailDTO", (string)null);
+                    b.ToTable("CustomerInformation");
                 });
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.Airport", b =>
@@ -789,19 +737,11 @@ namespace VHotel.Migrations
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.TransactionData.FlightBooking", b =>
                 {
-                    b.HasOne("staticclassmodel.DataAccess.Model.Master.Customer", "customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerRefId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("staticclassmodel.DataAccess.Model.TransactionData.FlightSchedule", "flightSchedule")
                         .WithMany()
                         .HasForeignKey("FlightScheduleRefId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("customer");
 
                     b.Navigation("flightSchedule");
                 });
@@ -864,6 +804,22 @@ namespace VHotel.Migrations
                     b.Navigation("customer");
 
                     b.Navigation("hotelBooking");
+                });
+
+            modelBuilder.Entity("VHotel.DataAccess.Model.TransactionData.Customerinformation", b =>
+                {
+                    b.HasOne("staticclassmodel.DataAccess.Model.TransactionData.FlightBooking", "flightBooking")
+                        .WithMany("FlightCustomerDetails")
+                        .HasForeignKey("flightBookingRefID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("flightBooking");
+                });
+
+            modelBuilder.Entity("staticclassmodel.DataAccess.Model.TransactionData.FlightBooking", b =>
+                {
+                    b.Navigation("FlightCustomerDetails");
                 });
 #pragma warning restore 612, 618
         }

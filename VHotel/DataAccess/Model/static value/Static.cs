@@ -1,11 +1,30 @@
-﻿using VHotel.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using VHotel.DataAccess;
 
 namespace staticclassmodel.Models
 {
-    public static class StaticInsert
+    public class StaticInsert : IStaticInsert
     {
-        public static void start(VhotelsSQLContex _vhotelsSQLContex)
+        private readonly VhotelsSQLContex _vhotelsSQLContex;
+        public StaticInsert(VhotelsSQLContex vhotelsSQLContex)
         {
+            _vhotelsSQLContex = vhotelsSQLContex;
+        }
+
+        public void start()
+        {
+            try
+            {
+                if (_vhotelsSQLContex.Database.GetPendingMigrations().Count() > 0)
+                {
+                    _vhotelsSQLContex.Database.Migrate();
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
             var count = _vhotelsSQLContex.countries.ToList();
             if (count.Count == 0)
             {
@@ -59,6 +78,41 @@ namespace staticclassmodel.Models
                 foreach (var lists in Utility.InsertAirport())
                 {
                     _vhotelsSQLContex.airports.Add(lists);
+                    _vhotelsSQLContex.SaveChanges();
+                }
+            }
+
+
+            var count10 = _vhotelsSQLContex.airlineDetails.ToList();
+            if (count6.Count == 0)
+            {
+                foreach (var lists in Utility.InsertAirline())
+                {
+                    _vhotelsSQLContex.airlineDetails.Add(lists);
+                    _vhotelsSQLContex.SaveChanges();
+                }
+            }
+            var count9 = _vhotelsSQLContex.Flights.ToList();
+            if (count6.Count == 0)
+            {
+                foreach (var lists in Utility.InsertFlight())
+                {
+                    _vhotelsSQLContex.Flights.Add(lists);
+                    _vhotelsSQLContex.SaveChanges();
+                }
+            }
+
+
+
+            var count7 = _vhotelsSQLContex.flightBookings.ToList();
+            if (count7.Count == 0)
+            {
+                _vhotelsSQLContex.flightSchedules.Add(Utility.InsertSchedule());
+                _vhotelsSQLContex.SaveChanges();
+
+                foreach (var lists in Utility.InsertFlightBooking())
+                {
+                    _vhotelsSQLContex.flightBookings.Add(lists);
                     _vhotelsSQLContex.SaveChanges();
                 }
             }

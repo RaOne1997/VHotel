@@ -24,6 +24,7 @@ namespace VHotel.DataAccess
         public DbSet<Customer> customers { get; set; } = null!;
         public DbSet<AirlineDetails> airlineDetails { get; set; } = null!;
         public DbSet<Amenities> amenities { get; set; } = null!;
+        public DbSet<Flight>  Flights { get; set; } = null!;
         public DbSet<HotelAmenitiesLink> hotelAmenitiesLink { get; set; } = null!;
 
         public DbSet<FlightBooking> flightBookings { get; set; } = null!;
@@ -35,9 +36,7 @@ namespace VHotel.DataAccess
             : base(options)
         {
         }
-        public DbSet<VHotel.DataAccess.DTo.FlightBookingDTO> FlightBookingDTO { get; set; }
-        public DbSet<VHotel.DataAccess.DTo.HotelBookingDTO> HotelBookingDTO { get; set; }
-        public DbSet<VHotel.DataAccess.DTo.HotelCustomerDetailDTO> HotelCustomerDetailDTO { get; set; }
+       
     
       
     }

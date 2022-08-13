@@ -2,6 +2,7 @@
 using staticclassmodel.DataAccess.Model.Master;
 using staticclassmodel.DataAccess.Model.TransactionData;
 using VHotel.DataAccess.DTo;
+using VHotel.DataAccess.Model.TransactionData;
 
 namespace VHotel
 {
@@ -37,6 +38,8 @@ namespace VHotel
             CreateMap<FlightBooking, FlightBookingDTO>().ReverseMap();
             CreateMap<HotelBooking, HotelBookingDTO>().ReverseMap();
             CreateMap<HotelCustomerDetail, HotelCustomerDetailDTO>().ReverseMap();
+
+            CreateMap<Customerinformation, CustomerinformationDTO>().ReverseMap();
 
 
 

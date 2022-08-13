@@ -85,6 +85,20 @@ namespace VHotel.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RoomTypes",
+                schema: "RoomDetails",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoomType = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoomTypes", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Flight",
                 columns: table => new
                 {
@@ -98,68 +112,13 @@ namespace VHotel.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Flight", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FlightBookingDTO",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PassengerNameRecord = table.Column<int>(type: "int", nullable: false),
-                    BookingTimeStamp = table.Column<TimeSpan>(type: "time", nullable: false),
-                    CustomerRefId = table.Column<int>(type: "int", nullable: false),
-                    FlightScheduleRefId = table.Column<int>(type: "int", nullable: false),
-                    CustomerContactMobile = table.Column<int>(type: "int", nullable: false),
-                    CustomerContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FlightBookingDTO", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "HotelBookingDTO",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    HotelRefId = table.Column<int>(type: "int", nullable: false),
-                    ConfirmationCode = table.Column<int>(type: "int", nullable: false),
-                    FromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ToDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HotelBookingDTO", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "HotelCustomerDetailDTO",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    HotelBookingRefId = table.Column<int>(type: "int", nullable: false),
-                    CustomerRefId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HotelCustomerDetailDTO", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoomTypes",
-                schema: "RoomDetails",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoomType = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoomTypes", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Flight_AirlineDetails_AirlineRefId",
+                        column: x => x.AirlineRefId,
+                        principalSchema: "Master",
+                        principalTable: "AirlineDetails",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -243,7 +202,6 @@ namespace VHotel.Migrations
                     checkout = table.Column<DateTime>(type: "datetime2", nullable: false),
                     checkin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     GaustNo = table.Column<int>(type: "int", nullable: false),
-                    RoomTypeRefID = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StaterefID = table.Column<int>(type: "int", nullable: false),
                     CountryRefID = table.Column<int>(type: "int", nullable: false),
@@ -262,17 +220,35 @@ namespace VHotel.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Hotel_RoomTypes_RoomTypeRefID",
-                        column: x => x.RoomTypeRefID,
-                        principalSchema: "RoomDetails",
-                        principalTable: "RoomTypes",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
                         name: "FK_Hotel_StateMaster_StaterefID",
                         column: x => x.StaterefID,
                         principalSchema: "MasterData",
                         principalTable: "StateMaster",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FlightBooking",
+                schema: "TransactionData",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PassengerNameRecord = table.Column<int>(type: "int", nullable: true),
+                    BookingTimeStamp = table.Column<TimeSpan>(type: "time", nullable: false),
+                    FlightScheduleRefId = table.Column<int>(type: "int", nullable: false),
+                    CustomerContactMobile = table.Column<int>(type: "int", nullable: false),
+                    CustomerContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FlightBooking", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_FlightBooking_FlightSchedule_FlightScheduleRefId",
+                        column: x => x.FlightScheduleRefId,
+                        principalSchema: "TransactionData",
+                        principalTable: "FlightSchedule",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.NoAction);
                 });
@@ -440,61 +416,24 @@ namespace VHotel.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FlightBooking",
-                schema: "TransactionData",
+                name: "CustomerInformation",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PassengerNameRecord = table.Column<int>(type: "int", nullable: false),
-                    BookingTimeStamp = table.Column<TimeSpan>(type: "time", nullable: false),
-                    CustomerRefId = table.Column<int>(type: "int", nullable: false),
-                    FlightScheduleRefId = table.Column<int>(type: "int", nullable: false),
-                    CustomerContactMobile = table.Column<int>(type: "int", nullable: false),
-                    CustomerContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PassengerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    flightBookingRefID = table.Column<int>(type: "int", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FlightBooking", x => x.ID);
+                    table.PrimaryKey("PK_CustomerInformation", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_FlightBooking_customers_CustomerRefId",
-                        column: x => x.CustomerRefId,
-                        principalTable: "customers",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_FlightBooking_FlightSchedule_FlightScheduleRefId",
-                        column: x => x.FlightScheduleRefId,
+                        name: "FK_CustomerInformation_FlightBooking_flightBookingRefID",
+                        column: x => x.flightBookingRefID,
                         principalSchema: "TransactionData",
-                        principalTable: "FlightSchedule",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "HotelCustomerDetail",
-                schema: "TransactionData",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    HotelBookingRefId = table.Column<int>(type: "int", nullable: false),
-                    CustomerRefId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HotelCustomerDetail", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_HotelCustomerDetail_customers_CustomerRefId",
-                        column: x => x.CustomerRefId,
-                        principalTable: "customers",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_HotelCustomerDetail_HotelBooking_HotelBookingRefId",
-                        column: x => x.HotelBookingRefId,
-                        principalSchema: "HotelTransactionData",
-                        principalTable: "HotelBooking",
+                        principalTable: "FlightBooking",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.NoAction);
                 });
@@ -523,6 +462,34 @@ namespace VHotel.Migrations
                         column: x => x.FlightBookingRefId,
                         principalSchema: "TransactionData",
                         principalTable: "FlightBooking",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HotelCustomerDetail",
+                schema: "TransactionData",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HotelBookingRefId = table.Column<int>(type: "int", nullable: false),
+                    CustomerRefId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HotelCustomerDetail", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_HotelCustomerDetail_customers_CustomerRefId",
+                        column: x => x.CustomerRefId,
+                        principalTable: "customers",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_HotelCustomerDetail_HotelBooking_HotelBookingRefId",
+                        column: x => x.HotelBookingRefId,
+                        principalSchema: "HotelTransactionData",
+                        principalTable: "HotelBooking",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.NoAction);
                 });
@@ -580,6 +547,11 @@ namespace VHotel.Migrations
                 column: "stateRefID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CustomerInformation_flightBookingRefID",
+                table: "CustomerInformation",
+                column: "flightBookingRefID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_customers_CityRefId",
                 table: "customers",
                 column: "CityRefId");
@@ -595,10 +567,9 @@ namespace VHotel.Migrations
                 column: "StateRefId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FlightBooking_CustomerRefId",
-                schema: "TransactionData",
-                table: "FlightBooking",
-                column: "CustomerRefId");
+                name: "IX_Flight_AirlineRefId",
+                table: "Flight",
+                column: "AirlineRefId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FlightBooking_FlightScheduleRefId",
@@ -629,12 +600,6 @@ namespace VHotel.Migrations
                 schema: "Hotels",
                 table: "Hotel",
                 column: "CountryRefID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Hotel_RoomTypeRefID",
-                schema: "Hotels",
-                table: "Hotel",
-                column: "RoomTypeRefID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Hotel_StaterefID",
@@ -710,15 +675,11 @@ namespace VHotel.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AirlineDetails",
-                schema: "Master");
-
-            migrationBuilder.DropTable(
                 name: "Airport",
                 schema: "RoomDetails");
 
             migrationBuilder.DropTable(
-                name: "FlightBookingDTO");
+                name: "CustomerInformation");
 
             migrationBuilder.DropTable(
                 name: "FlightCustomerDetail",
@@ -729,14 +690,8 @@ namespace VHotel.Migrations
                 schema: "Hotel");
 
             migrationBuilder.DropTable(
-                name: "HotelBookingDTO");
-
-            migrationBuilder.DropTable(
                 name: "HotelCustomerDetail",
                 schema: "TransactionData");
-
-            migrationBuilder.DropTable(
-                name: "HotelCustomerDetailDTO");
 
             migrationBuilder.DropTable(
                 name: "RoomDetails",
@@ -750,34 +705,38 @@ namespace VHotel.Migrations
                 name: "amenities");
 
             migrationBuilder.DropTable(
-                name: "HotelBooking",
-                schema: "HotelTransactionData");
-
-            migrationBuilder.DropTable(
                 name: "customers");
 
             migrationBuilder.DropTable(
-                name: "FlightSchedule",
-                schema: "TransactionData");
-
-            migrationBuilder.DropTable(
-                name: "Hotel",
-                schema: "Hotels");
-
-            migrationBuilder.DropTable(
-                name: "CityMaster",
-                schema: "MasterData");
-
-            migrationBuilder.DropTable(
-                name: "Flight");
+                name: "HotelBooking",
+                schema: "HotelTransactionData");
 
             migrationBuilder.DropTable(
                 name: "RoomTypes",
                 schema: "RoomDetails");
 
             migrationBuilder.DropTable(
+                name: "FlightSchedule",
+                schema: "TransactionData");
+
+            migrationBuilder.DropTable(
+                name: "CityMaster",
+                schema: "MasterData");
+
+            migrationBuilder.DropTable(
+                name: "Hotel",
+                schema: "Hotels");
+
+            migrationBuilder.DropTable(
+                name: "Flight");
+
+            migrationBuilder.DropTable(
                 name: "StateMaster",
                 schema: "MasterData");
+
+            migrationBuilder.DropTable(
+                name: "AirlineDetails",
+                schema: "Master");
 
             migrationBuilder.DropTable(
                 name: "CountryMaster",

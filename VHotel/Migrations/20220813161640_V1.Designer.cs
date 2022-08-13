@@ -12,7 +12,7 @@ using VHotel.DataAccess;
 namespace VHotel.Migrations
 {
     [DbContext(typeof(VhotelsSQLContex))]
-    [Migration("20220709051357_V1")]
+    [Migration("20220813161640_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -286,6 +286,8 @@ namespace VHotel.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("AirlineRefId");
+
                     b.ToTable("Flight");
                 });
 
@@ -327,9 +329,6 @@ namespace VHotel.Migrations
                     b.Property<int>("Pincode")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomTypeRefID")
-                        .HasColumnType("int");
-
                     b.Property<int>("StaterefID")
                         .HasColumnType("int");
 
@@ -342,8 +341,6 @@ namespace VHotel.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("CountryRefID");
-
-                    b.HasIndex("RoomTypeRefID");
 
                     b.HasIndex("StaterefID");
 
@@ -456,18 +453,13 @@ namespace VHotel.Migrations
                     b.Property<int>("CustomerContactMobile")
                         .HasColumnType("int");
 
-                    b.Property<int>("CustomerRefId")
-                        .HasColumnType("int");
-
                     b.Property<int>("FlightScheduleRefId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PassengerNameRecord")
+                    b.Property<int?>("PassengerNameRecord")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("CustomerRefId");
 
                     b.HasIndex("FlightScheduleRefId");
 
@@ -591,79 +583,32 @@ namespace VHotel.Migrations
                     b.ToTable("RoomTypes", "RoomDetails");
                 });
 
-            modelBuilder.Entity("VHotel.DataAccess.DTo.FlightBookingDTO", b =>
+            modelBuilder.Entity("VHotel.DataAccess.Model.TransactionData.Customerinformation", b =>
                 {
-                    b.Property<int?>("ID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<TimeSpan>("BookingTimeStamp")
-                        .HasColumnType("time");
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
 
-                    b.Property<string>("CustomerContactEmail")
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<string>("PassengerName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CustomerContactMobile")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomerRefId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FlightScheduleRefId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PassengerNameRecord")
+                    b.Property<int>("flightBookingRefID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.ToTable("FlightBookingDTO");
-                });
+                    b.HasIndex("flightBookingRefID");
 
-            modelBuilder.Entity("VHotel.DataAccess.DTo.HotelBookingDTO", b =>
-                {
-                    b.Property<int?>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ID"), 1L, 1);
-
-                    b.Property<int>("ConfirmationCode")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FromDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("HotelRefId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ToDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("HotelBookingDTO");
-                });
-
-            modelBuilder.Entity("VHotel.DataAccess.DTo.HotelCustomerDetailDTO", b =>
-                {
-                    b.Property<int?>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ID"), 1L, 1);
-
-                    b.Property<int>("CustomerRefId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HotelBookingRefId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("HotelCustomerDetailDTO");
+                    b.ToTable("CustomerInformation");
                 });
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.Airport", b =>
@@ -715,17 +660,22 @@ namespace VHotel.Migrations
                     b.Navigation("state");
                 });
 
+            modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.Flight", b =>
+                {
+                    b.HasOne("staticclassmodel.DataAccess.Model.Master.AirlineDetails", "airlineDetails")
+                        .WithMany()
+                        .HasForeignKey("AirlineRefId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("airlineDetails");
+                });
+
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.Hotel", b =>
                 {
                     b.HasOne("staticclassmodel.DataAccess.Model.Master.Country", "country")
                         .WithMany()
                         .HasForeignKey("CountryRefID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Type", "type")
-                        .WithMany()
-                        .HasForeignKey("RoomTypeRefID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -738,8 +688,6 @@ namespace VHotel.Migrations
                     b.Navigation("country");
 
                     b.Navigation("state");
-
-                    b.Navigation("type");
                 });
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.Master.HotelAmenitiesLink", b =>
@@ -791,19 +739,11 @@ namespace VHotel.Migrations
 
             modelBuilder.Entity("staticclassmodel.DataAccess.Model.TransactionData.FlightBooking", b =>
                 {
-                    b.HasOne("staticclassmodel.DataAccess.Model.Master.Customer", "customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerRefId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("staticclassmodel.DataAccess.Model.TransactionData.FlightSchedule", "flightSchedule")
                         .WithMany()
                         .HasForeignKey("FlightScheduleRefId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("customer");
 
                     b.Navigation("flightSchedule");
                 });
@@ -866,6 +806,22 @@ namespace VHotel.Migrations
                     b.Navigation("customer");
 
                     b.Navigation("hotelBooking");
+                });
+
+            modelBuilder.Entity("VHotel.DataAccess.Model.TransactionData.Customerinformation", b =>
+                {
+                    b.HasOne("staticclassmodel.DataAccess.Model.TransactionData.FlightBooking", "flightBooking")
+                        .WithMany("FlightCustomerDetails")
+                        .HasForeignKey("flightBookingRefID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("flightBooking");
+                });
+
+            modelBuilder.Entity("staticclassmodel.DataAccess.Model.TransactionData.FlightBooking", b =>
+                {
+                    b.Navigation("FlightCustomerDetails");
                 });
 #pragma warning restore 612, 618
         }

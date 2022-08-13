@@ -7,7 +7,7 @@ using VHotel.Services.Interface;
 
 namespace VHotel.Services
 {
-    public class FlightBookingServices : ICrudeServices<FlightBookingDTO>
+    public class FlightBookingServices : IFlightBookingServices
     {
 
         private readonly IFlightBookingReoposttory _flightBookingReoposttory;
@@ -22,7 +22,7 @@ namespace VHotel.Services
         }
         public async Task CreateAsync(FlightBookingDTO modelDTO)
         {
-         
+
 
             var airport = _mapper.Map<FlightBooking>(modelDTO);
             await _flightBookingReoposttory.CreateAsync(airport);
@@ -59,11 +59,20 @@ namespace VHotel.Services
             return cityDTO;
         }
 
+        public async Task<FlightBookingDTO> GetByIdShedulID(int id)
+        {
+            var flightBooking = await _flightBookingReoposttory.GetbyFlightID(id);
+
+
+            var cityDTO = _mapper.Map<FlightBookingDTO>(flightBooking);
+            return cityDTO;
+        }
+
         public async Task UpdateAsync(FlightBookingDTO modelDTO)
         {
             try
             {
-              
+
 
                 if (await _flightBookingReoposttory.Exists((int)modelDTO.ID))
                 {

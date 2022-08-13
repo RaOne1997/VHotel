@@ -17,7 +17,7 @@ namespace staticclassmodel.DataAccess.Model.TransactionData
 
         public int CustomerContactMobile { get; set; }
         public string CustomerContactEmail { get; set; } = null!;
-        List<Customerinformation> FlightCustomerDetails { get; set; }
+       public ICollection<Customerinformation> FlightCustomerDetails { get; set; }
 
     }
 

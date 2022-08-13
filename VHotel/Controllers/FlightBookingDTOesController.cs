@@ -7,17 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VHotel.DataAccess;
 using VHotel.DataAccess.DTo;
+using VHotel.Services;
 using VHotel.Services.Interface;
 
 namespace VHotel.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
     public class FlightBookingDTOesController : ControllerBase
     {
-        private readonly ICrudeServices<FlightBookingDTO> _flightBookingservices;
+        private readonly IFlightBookingServices _flightBookingservices;
 
-        public FlightBookingDTOesController(ICrudeServices<FlightBookingDTO> flightBookingservices)
+        public FlightBookingDTOesController(IFlightBookingServices flightBookingservices)
         {
             _flightBookingservices = flightBookingservices;
         }
@@ -60,6 +61,20 @@ namespace VHotel.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<FlightBookingDTO>> GetFlightBookingShedul(int? id)
+        {
+            try
+            {
+                var citys = await _flightBookingservices.GetByIdShedulID((int)id);
+                return Ok(citys);
+            }
+            catch (Exception e)
+            {
+                //_logger.LogError(e, "Error in GetAll");
+                return Problem("Error in GetAll" + e);
+            }
+        }
         // PUT: api/AmenuitiesDTOes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]

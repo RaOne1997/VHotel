@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using staticclassmodel.DataAccess.Model.Master;
+using staticclassmodel.Models;
 using VHotel;
 using VHotel.DataAccess;
 using VHotel.DataAccess.DTo;
@@ -21,6 +22,9 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddScoped<IRoomServices, RoomServices>();
 builder.Services.AddScoped<IStateServices, StateServices>();
 builder.Services.AddScoped<IHotelServices, HotelServices>();
+builder.Services.AddScoped<IStaticInsert, StaticInsert>();
+
+
 
 
 builder.Services.AddScoped<ICityServices, CityServices>();
@@ -32,7 +36,7 @@ builder.Services.AddScoped<ICrudeServices<AirlineDetailsDTO>, AirlineServices>()
 builder.Services.AddScoped<ICrudeServices<FlightDTO>, FlightServices>();
 builder.Services.AddScoped<ICrudeServices<CustomersDTO>, CustomersServices>();
 builder.Services.AddScoped<IFilightShedulServices, FlightScheduleServices>();
-builder.Services.AddScoped<ICrudeServices<FlightBookingDTO>, FlightBookingServices>();
+builder.Services.AddScoped<IFlightBookingServices, FlightBookingServices>();
 builder.Services.AddScoped<ICrudeServices<HotelBookingDTO>, HotelBookingsServices>();
 builder.Services.AddScoped<ICrudeServices<HotelCustomerDetailDTO>, HotelCustomerDetailServices>();
 
@@ -61,6 +65,7 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
+SeedDatabase();
 app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
 // Configure the HTTP request pipeline.
@@ -77,3 +82,12 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IStaticInsert>();
+        dbInitializer.start();
+    }
+}

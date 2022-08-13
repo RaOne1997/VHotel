@@ -1,5 +1,8 @@
 ﻿using staticclassmodel.DataAccess.Model.Master;
+using staticclassmodel.DataAccess.Model.TransactionData;
+using VHotel.DataAccess.DTo;
 using VHotel.DataAccess.Model;
+using VHotel.DataAccess.Model.TransactionData;
 
 namespace VHotel.DataAccess
 {
@@ -217,7 +220,7 @@ namespace VHotel.DataAccess
                     Address3 = Faker.Address.StreetAddress(true),
                     CityRefId = airportCity[i],
                     PinCode = Faker.Address.ZipCode(),
-                    Telephone1 =Faker.Phone.Number(),
+                    Telephone1 = Faker.Phone.Number(),
                     Telephone2 = Faker.Phone.Number(),
                     Email1 = Faker.Internet.Email("Airport"),
                     Email2public = Faker.Internet.FreeEmail()
@@ -232,6 +235,102 @@ namespace VHotel.DataAccess
 
             return list;
         }
+
+
+        public static List<FlightBooking> InsertFlightBooking()
+        {
+            var list = new List<FlightBooking>();
+
+            for (int i = 0; i < 2; i++)
+            {
+                var airpot = new FlightBooking
+                {
+                    PassengerNameRecord = 2,
+                    FlightScheduleRefId = 1,
+                    CustomerContactMobile = 1,
+                    CustomerContactEmail = Faker.Internet.Email(),
+                    FlightCustomerDetails = new List<Customerinformation>
+                    {
+
+                    new Customerinformation { PassengerName = Faker.Name.First(),
+                        Age = 25,
+                        Gender = 'M' },
+                     new Customerinformation { PassengerName = Faker.Name.First(),
+                        Age = 25,
+                        Gender = 'F' }
+
+                    }
+
+
+
+                };
+                list.Add(airpot);
+            }
+
+
+
+            return list;
+        }
+
+         public static List<AirlineDetails> InsertAirline()
+        {
+            var list = new List<AirlineDetails>();
+
+            for (int i = 0; i < 2; i++)
+            {
+                var airpot = new AirlineDetails
+                {
+                    AirlineName = "AirIndia",
+                    ShortName = "AirIndia",
+                    HelplineNumber = 88732097423,
+                    Email1 = Faker.Internet.Email(),
+                   
+                };
+                list.Add(airpot);
+            }
+
+
+
+            return list;
+        }
+
+        public static List<Flight> InsertFlight()
+        {
+            var list = new List<Flight>();
+
+            for (int i = 0; i < 2; i++)
+            {
+                var airpot = new Flight
+                {
+                    FlightCode = "AirIndia",
+                    AirlineRefId = 1,
+                    FromAirportRefId=1,
+                    ToAirportRefId=2
+
+                };
+                list.Add(airpot);
+            }
+
+
+
+            return list;
+        }
+
+        public static FlightSchedule InsertSchedule()
+        {
+                                 
+                var Flightshedul = new FlightSchedule
+                {
+                    FlightRefId = 1,
+                    DepartureDate = DateTime.Parse("2022-07-22") ,
+                    ArrivalDate = DateTime.Parse("2022-07-24"),
+                    
+
+                };
+
+                    return Flightshedul;
+        }
+
 
         enum statename
         {
