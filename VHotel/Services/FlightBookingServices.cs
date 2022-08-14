@@ -59,7 +59,18 @@ namespace VHotel.Services
             return cityDTO;
         }
 
-        public async Task<List<FlightBookingDTO>> GetByIdShedulID(int id)
+        public async Task<BookingFlightDTO> GetByIdSheduD(int id)
+        {
+            var flightBooking = await _flightBookingReoposttory.GetbyFlight(id);
+
+
+          
+
+            return flightBooking;
+
+        }
+
+        public async Task<FlightBookingDTO> GetByIdShedulID(int id)
         {
             var flightBooking = await _flightBookingReoposttory.GetbyFlightID(id);
 

@@ -62,7 +62,22 @@ namespace VHotel.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<FlightBookingDTO>>> GetFlightBookingShedul(int? id)
+        public async Task<ActionResult<BookingFlightDTO>> GetFlighO(int? id)
+        {
+            try
+            {
+                var citys = await _flightBookingservices.GetByIdSheduD((int)id);
+                return citys;
+            }
+            catch (Exception e)
+            {
+                //_logger.LogError(e, "Error in GetAll");
+                return Problem("Error in GetAll" + e);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<FlightBookingDTO>> GetFlightBookingShedul(int? id)
         {
             try
             {

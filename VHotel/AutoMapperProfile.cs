@@ -42,22 +42,43 @@ namespace VHotel
 
                       .ForMember(evw => evw.FlightCode, opt => opt.MapFrom(em => em.flightSchedule.flight.FlightCode))
                                 .ForMember(evw => evw.Fromairport, opt => opt.MapFrom(em => em.flightSchedule.flight.airportFrom.AirportName))
-                                .ForMember(evw => evw.FromAirportCode, opt => opt.MapFrom(em => em.flightSchedule.flight.airportFrom.AirportCode)) 
-                                .ForMember(evw => evw.toAirportCode, opt => opt.MapFrom(em => em.flightSchedule.flight.airportToAirport.AirportName))
-                                .ForMember(evw => evw.Toairport, opt => opt.MapFrom(em => em.flightSchedule.flight.airportToAirport.AirportCode))
+                                .ForMember(evw => evw.FromAirportCode, opt => opt.MapFrom(em => em.flightSchedule.flight.airportFrom.AirportCode))
+                                .ForMember(evw => evw.Toairport, opt => opt.MapFrom(em => em.flightSchedule.flight.airportToAirport.AirportName))
+                                .ForMember(evw => evw.toAirportCode, opt => opt.MapFrom(em => em.flightSchedule.flight.airportToAirport.AirportCode))
                                 .ForMember(evw => evw.ArrivalDate, opt => opt.MapFrom(em => em.flightSchedule.ArrivalDate))
                                 .ForMember(evw => evw.DepartureDate, opt => opt.MapFrom(em => em.flightSchedule.DepartureDate))
 
 
                 .ReverseMap()
                                 .ForPath(em => em.flightSchedule.flight.airportFrom.AirportName, opt => opt.Ignore())
-                                .ForPath(em => em.flightSchedule.flight.airportFrom.AirportCode, opt => opt.Ignore()) 
+                                .ForPath(em => em.flightSchedule.flight.airportFrom.AirportCode, opt => opt.Ignore())
                                 .ForPath(em => em.flightSchedule.flight.airportToAirport.AirportName, opt => opt.Ignore())
                                 .ForPath(em => em.flightSchedule.flight.airportToAirport.AirportCode, opt => opt.Ignore())
                                 .ForPath(em => em.flightSchedule.ArrivalDate, opt => opt.Ignore())
                                 .ForPath(em => em.flightSchedule.DepartureDate, opt => opt.Ignore())
 
                 .ForPath(em => em.flightSchedule.flight.FlightCode, opt => opt.Ignore());
+
+
+            CreateMap<FlightSchedule, BookingFlightDTO>()
+
+                      .ForMember(evw => evw.FlightCode, opt => opt.MapFrom(em => em.flight.FlightCode))
+                                .ForMember(evw => evw.Fromairport, opt => opt.MapFrom(em => em.flight.airportFrom.AirportName))
+                                .ForMember(evw => evw.FromAirportCode, opt => opt.MapFrom(em => em.flight.airportFrom.AirportCode))
+                                .ForMember(evw => evw.Toairport, opt => opt.MapFrom(em => em.flight.airportToAirport.AirportName))
+                                .ForMember(evw => evw.toAirportCode, opt => opt.MapFrom(em => em.flight.airportToAirport.AirportCode))
+                                .ForMember(evw => evw.ArrivalDate, opt => opt.MapFrom(em => em.ArrivalDate))
+                                .ForMember(evw => evw.DepartureDate, opt => opt.MapFrom(em => em.DepartureDate))
+
+
+                .ReverseMap()
+                                .ForPath(em => em.flight.airportFrom.AirportName, opt => opt.Ignore())
+                                .ForPath(em => em.flight.airportFrom.AirportCode, opt => opt.Ignore())
+                                .ForPath(em => em.flight.airportToAirport.AirportName, opt => opt.Ignore())
+                                .ForPath(em => em.flight.airportToAirport.AirportCode, opt => opt.Ignore())
+                                .ForPath(em => em.ArrivalDate, opt => opt.Ignore())
+                                .ForPath(em => em.DepartureDate, opt => opt.Ignore())
+                                .ForPath(em => em.flight.FlightCode, opt => opt.Ignore());
 
 
             CreateMap<HotelBooking, HotelBookingDTO>().ReverseMap();
