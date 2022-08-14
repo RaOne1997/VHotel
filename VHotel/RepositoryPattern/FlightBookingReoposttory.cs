@@ -20,10 +20,13 @@ namespace VHotel.RepositoryPattern
             _mapper = mapper;
         }
 
-        public async Task<FlightBooking> GetbyFlightID(int ID)
+        public async Task<List<FlightBookingDTO>> GetbyFlightID(int ID)
         {
-            var flightBookingDTOsres = _db.flightBookings.Include(p=>p.FlightCustomerDetails).Where(m => m.FlightScheduleRefId == ID);
-            return  await flightBookingDTOsres.FirstOrDefaultAsync();
+            //var flightBookingDTOsres = _db.flightBookings.Include(p=>p.FlightCustomerDetails).Include("flightSchedule").Where(m => m.FlightScheduleRefId == ID);
+            var flightBookingDTOsres = _mapper
+           .ProjectTo<FlightBookingDTO>(DbSet)
+               .Where(m => m.FlightScheduleRefId == ID);
+            return  await flightBookingDTOsres.ToListAsync();
         }
     }
 }

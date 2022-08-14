@@ -20,7 +20,7 @@ namespace VHotel.Services
             _flightBookingReoposttory = flightBookingReoposttory;
             _mapper = mapper;
         }
-        public async Task CreateAsync(FlightBookingDTO modelDTO)
+        public async Task CreateAsync(FlightBookingInputDTO modelDTO)
         {
 
 
@@ -59,16 +59,16 @@ namespace VHotel.Services
             return cityDTO;
         }
 
-        public async Task<FlightBookingDTO> GetByIdShedulID(int id)
+        public async Task<List<FlightBookingDTO>> GetByIdShedulID(int id)
         {
             var flightBooking = await _flightBookingReoposttory.GetbyFlightID(id);
 
 
-            var cityDTO = _mapper.Map<FlightBookingDTO>(flightBooking);
-            return cityDTO;
+            //var cityDTO = _mapper.Map<FlightBookingDTO>(flightBooking);
+            return flightBooking;
         }
 
-        public async Task UpdateAsync(FlightBookingDTO modelDTO)
+        public async Task UpdateAsync(FlightBookingInputDTO modelDTO)
         {
             try
             {

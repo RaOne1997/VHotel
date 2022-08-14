@@ -62,12 +62,12 @@ namespace VHotel.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<FlightBookingDTO>> GetFlightBookingShedul(int? id)
+        public async Task<ActionResult<List<FlightBookingDTO>>> GetFlightBookingShedul(int? id)
         {
             try
             {
                 var citys = await _flightBookingservices.GetByIdShedulID((int)id);
-                return Ok(citys);
+                return citys;
             }
             catch (Exception e)
             {
@@ -78,7 +78,7 @@ namespace VHotel.Controllers
         // PUT: api/AmenuitiesDTOes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
-        public async Task<IActionResult> PutFlightBookingDTO(FlightBookingDTO flightBookingDTO)
+        public async Task<IActionResult> PutFlightBookingDTO(FlightBookingInputDTO flightBookingDTO)
         {
 
             try
@@ -98,7 +98,7 @@ namespace VHotel.Controllers
         // POST: api/AmenuitiesDTOes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<FlightBookingDTO>> PostFlightBookingDTO(FlightBookingDTO flightBookingDTO)
+        public async Task<ActionResult<FlightBookingDTO>> PostFlightBookingDTO(FlightBookingInputDTO flightBookingDTO)
         {
             try
             {

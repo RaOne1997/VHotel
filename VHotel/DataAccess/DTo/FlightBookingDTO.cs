@@ -8,7 +8,27 @@
         public int FlightScheduleRefId { get; set; }
         public int CustomerContactMobile { get; set; }
         public string CustomerContactEmail { get; set; } = null!;
+        public DateTime DepartureDate { get; set; }
+        public DateTime? ArrivalDate { get; set; }
+        public string FlightCode { get; set; } = null!;
+        public string Fromairport { get; set; } = null!;
+        public string Toairport { get; set; } = null!;
+        public string FromAirportCode { get; set; } = null!;
+        public string toAirportCode { get; set; } = null!;
 
+        public ICollection<CustomerinformationDTO> FlightCustomerDetails { get; set; }
+    }
+
+
+    public class FlightBookingInputDTO : ViewModelBase
+    {
+        public int PassengerNameRecord { get; set; }
+        public TimeSpan? BookingTimeStamp { get; set; }
+
+        public int FlightScheduleRefId { get; set; }
+        public int CustomerContactMobile { get; set; }
+        public string CustomerContactEmail { get; set; } = null!;
+  
         public ICollection<CustomerinformationDTO> FlightCustomerDetails { get; set; }
     }
     public class CustomerinformationDTO : ViewModelBase

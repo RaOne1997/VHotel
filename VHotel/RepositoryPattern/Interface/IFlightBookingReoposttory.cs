@@ -6,6 +6,6 @@ namespace VHotel.RepositoryPattern.Interface
 {
     public interface IFlightBookingReoposttory : IRepository<FlightBooking>
     {
-        public Task<FlightBooking> GetbyFlightID(int ID);
+        public Task<List<FlightBookingDTO>> GetbyFlightID(int ID);
     }
 }
