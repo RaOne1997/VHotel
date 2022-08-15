@@ -25,18 +25,18 @@ namespace VHotel.Controllers
 
         // GET: api/AmenuitiesDTOes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FlightBookingDTO>>> GetFlightBookingDTO()
+        public async Task<ActionResult<FlightBookingDTO>> GetFlightBookingDTO()
         {
             try
             {
-                var citys = await _flightBookingservices.GetAllAsync();
-                if (citys.Count == 0)
-                {
+                var citys = await _flightBookingservices.getALlDec();
+                //if (citys.Count == 0)
+                //{
 
-                    return Ok("NO record Found");
-                }
-                else
-                    return Ok(citys);
+                //    return Ok("NO record Found");
+                //}
+                //else
+                    return citys;
             }
             catch (Exception e)
             {
@@ -119,7 +119,7 @@ namespace VHotel.Controllers
             {
                 flightBookingDTO.BookingTimeStamp = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                 await _flightBookingservices.CreateAsync(flightBookingDTO);
-                return CreatedAtAction("GetAmenuitiesDTO", new { id = flightBookingDTO.ID }, flightBookingDTO);
+                return CreatedAtAction("GetFlightBookingDTO", new { id = flightBookingDTO.ID }, flightBookingDTO);
 
             }
             catch (Exception e)

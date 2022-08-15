@@ -20,6 +20,16 @@ namespace VHotel.RepositoryPattern
             _mapper = mapper;
         }
 
+        public async Task<FlightBookingDTO> getALlDec()
+        {
+
+            var orderdec = (from a in _db.flightBookings
+                           orderby a.ID descending
+                           select a).Take(1);
+            var bbb =  _mapper.ProjectTo<FlightBookingDTO>(orderdec);
+            return await bbb .SingleAsync();
+        }
+
         public async Task<BookingFlightDTO> GetbyFlight(int ID)
         {
           

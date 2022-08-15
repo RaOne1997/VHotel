@@ -8,5 +8,6 @@ namespace VHotel.RepositoryPattern.Interface
     {
         public Task<FlightBookingDTO> GetbyFlightID(int ID);
         public Task<BookingFlightDTO> GetbyFlight(int ID);
+        public Task<FlightBookingDTO> getALlDec();
     }
 }

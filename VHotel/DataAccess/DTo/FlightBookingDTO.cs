@@ -35,7 +35,7 @@
     public class BookingFlightDTO : ViewModelBase
     {
         public int PassengerNameRecord { get; set; }
-     
+        public int FlightScheduleRefId { get; set; }
         public int CustomerContactMobile { get; set; }
         public string CustomerContactEmail { get; set; } = null!;
        public DateTime DepartureDate { get; set; }

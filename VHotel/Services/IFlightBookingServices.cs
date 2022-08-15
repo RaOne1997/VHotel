@@ -12,5 +12,6 @@ namespace VHotel.Services
         Task<FlightBookingDTO> GetByIdShedulID(int id);
         Task<BookingFlightDTO> GetByIdSheduD(int id);
         Task UpdateAsync(FlightBookingInputDTO modelDTO);
+        public Task<FlightBookingDTO> getALlDec();
     }
 }

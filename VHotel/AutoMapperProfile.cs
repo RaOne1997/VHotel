@@ -37,6 +37,7 @@ namespace VHotel
 
 
             CreateMap<FlightBooking, FlightBookingInputDTO>().ReverseMap();
+            CreateMap<FlightBooking, FlightBookingInputDTO>().ReverseMap();
 
             CreateMap<FlightBooking, FlightBookingDTO>()
 
@@ -63,6 +64,7 @@ namespace VHotel
             CreateMap<FlightSchedule, BookingFlightDTO>()
 
                       .ForMember(evw => evw.FlightCode, opt => opt.MapFrom(em => em.flight.FlightCode))
+                      .ForMember(evw => evw.FlightScheduleRefId, opt => opt.MapFrom(em => em.ID))
                                 .ForMember(evw => evw.Fromairport, opt => opt.MapFrom(em => em.flight.airportFrom.AirportName))
                                 .ForMember(evw => evw.FromAirportCode, opt => opt.MapFrom(em => em.flight.airportFrom.AirportCode))
                                 .ForMember(evw => evw.Toairport, opt => opt.MapFrom(em => em.flight.airportToAirport.AirportName))
@@ -78,7 +80,8 @@ namespace VHotel
                                 .ForPath(em => em.flight.airportToAirport.AirportCode, opt => opt.Ignore())
                                 .ForPath(em => em.ArrivalDate, opt => opt.Ignore())
                                 .ForPath(em => em.DepartureDate, opt => opt.Ignore())
-                                .ForPath(em => em.flight.FlightCode, opt => opt.Ignore());
+                                .ForPath(em => em.flight.FlightCode, opt => opt.Ignore())
+                                .ForPath(em => em.ID, opt => opt.Ignore());
 
 
             CreateMap<HotelBooking, HotelBookingDTO>().ReverseMap();
