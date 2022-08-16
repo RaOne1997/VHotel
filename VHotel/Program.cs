@@ -37,6 +37,7 @@ builder.Services.AddScoped<ICrudeServices<FlightDTO>, FlightServices>();
 builder.Services.AddScoped<ICrudeServices<CustomersDTO>, CustomersServices>();
 builder.Services.AddScoped<IFilightShedulServices, FlightScheduleServices>();
 builder.Services.AddScoped<IFlightBookingServices, FlightBookingServices>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICrudeServices<HotelBookingDTO>, HotelBookingsServices>();
 builder.Services.AddScoped<ICrudeServices<HotelCustomerDetailDTO>, HotelCustomerDetailServices>();
 
@@ -51,7 +52,7 @@ builder.Services.AddScoped<IAmenuitiesRepository, AmenuitiesRepository>();
 builder.Services.AddScoped<IAirportRepository, AirportRepository>();
 builder.Services.AddScoped<IAirlineRepository, AirlineRepository>();
 builder.Services.AddScoped<IFlightRepository, FlightRepository>();
-builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+builder.Services.AddScoped<IAccountRepositery, AccountRepositery>();
 builder.Services.AddScoped<IHotelAmenitiesLinkRepository, HotelAmenitiesLinkRepository>();
 builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
 builder.Services.AddScoped<IFlightScheduleRepository, FlightScheduleRepository>();

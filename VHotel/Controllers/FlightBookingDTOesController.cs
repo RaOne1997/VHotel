@@ -36,6 +36,7 @@ namespace VHotel.Controllers
                 //    return Ok("NO record Found");
                 //}
                 //else
+                //else
                     return citys;
             }
             catch (Exception e)

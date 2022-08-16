@@ -2,6 +2,7 @@
 using staticclassmodel.DataAccess.Model.Master;
 using staticclassmodel.DataAccess.Model.TransactionData;
 using VHotel.DataAccess.DTo;
+using VHotel.DataAccess.Model.Master;
 using VHotel.DataAccess.Model.TransactionData;
 
 namespace VHotel
@@ -11,6 +12,7 @@ namespace VHotel
         public AutoMapperProfile()
         {
             CreateMap<Room, RoomDTO>().ReverseMap();
+            CreateMap<Account, AccountDTO>().ReverseMap();
             CreateMap<Hotel, HotelDTO>().ReverseMap();
             CreateMap<Amenities, AmenuitiesDTO>().ReverseMap();
             CreateMap<HotelAmenitiesLink, HotelAmenitiesLinkDTO>().ReverseMap();

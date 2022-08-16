@@ -25,6 +25,14 @@ namespace staticclassmodel.Models
             {
 
             }
+            var count11 = _vhotelsSQLContex.accounts.ToList();
+            if (count11.Count == 0)
+            {
+                
+                    _vhotelsSQLContex.accounts.Add(Utility.InsertAccount());
+                    _vhotelsSQLContex.SaveChanges();
+                
+            }
             var count = _vhotelsSQLContex.countries.ToList();
             if (count.Count == 0)
             {

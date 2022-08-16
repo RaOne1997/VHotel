@@ -1,14 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using VHotel.DataAccess.Model.Master;
 
 namespace staticclassmodel.DataAccess.Model.Master
 {
     public class Customer : DataModelBase
     {
-       
+
+        public int AccountRefID { get; set; }
+        [ForeignKey(nameof(AccountRefID))]
+        public Account account { get; set; }
+
         public string FirstName { get; set; } = null!;
-        public string LastName { get; set; }= null!;
+
+        public string LastName { get; set; } = null!;
         public DateTime? DateOfBirth { get; set; }
         public byte[]? ProfilePhoto { get; set; }
         public string Address1 { get; set; } = null!;

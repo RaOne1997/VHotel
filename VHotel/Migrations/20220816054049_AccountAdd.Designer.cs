@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VHotel.DataAccess;
 
@@ -11,9 +12,10 @@ using VHotel.DataAccess;
 namespace VHotel.Migrations
 {
     [DbContext(typeof(VhotelsSQLContex))]
-    partial class VhotelsSQLContexModelSnapshot : ModelSnapshot
+    [Migration("20220816054049_AccountAdd")]
+    partial class AccountAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -604,8 +606,8 @@ namespace VHotel.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("Phone")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");

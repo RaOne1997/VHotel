@@ -2,6 +2,7 @@
 using staticclassmodel.DataAccess.Model.TransactionData;
 using VHotel.DataAccess.DTo;
 using VHotel.DataAccess.Model;
+using VHotel.DataAccess.Model.Master;
 using VHotel.DataAccess.Model.TransactionData;
 
 namespace VHotel.DataAccess
@@ -199,7 +200,19 @@ namespace VHotel.DataAccess
             return city;
         }
 
+        public static Account InsertAccount()
+        {
+            var account = new Account
+            {
+                Email = "varadeabhijeet@gmail.com",
+                UserName = "Abhijeet",
+                Phone = "7057445611",
+                Password = "Abhi@123"
 
+            };
+
+                return account;
+        }
 
 
         public static List<Airport> InsertAirport()
