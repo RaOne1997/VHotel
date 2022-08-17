@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using VHotel.DataAccess.DTo;
+using VHotel.DataAccess.Model.Master;
 using VHotel.RepositoryPattern.Interface;
 
 namespace VHotel.Services
@@ -17,7 +18,20 @@ namespace VHotel.Services
             _mapper = mapper;
         }
 
+        public async Task CreateAsync(AccountDTO accountDTO)
+        {
+            try
+            {
+                var account = _mapper.Map<Account>(accountDTO);
+                await _accountRepository.CreateAsync(account);
+            }
+            catch(Exception ex)
+            {
 
+            }
+
+
+        }
 
         public async Task<List<AccountDTO>> GetAllAsync()
         {

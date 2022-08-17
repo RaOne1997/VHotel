@@ -39,6 +39,9 @@ namespace VHotel.Controllers
                 return Problem("Error in GetAll" + e);
             }
         }
+
+
+        
         [HttpGet("{userID}/{Password}")]
         public async Task<ActionResult<AccountDTO>> login(string userID,string Password)
         {
@@ -53,6 +56,24 @@ namespace VHotel.Controllers
                 else
                     return result;
                     
+            }
+            catch (Exception e)
+            {
+                //_logger.LogError(e, "Error in GetAll");
+                return Problem("Error in GetAll" + e + false);
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult<AccountDTO>> CreatreAsync(AccountDTO accountDTO)
+        {
+            try
+            {
+                
+                await _airlinrtServices.CreateAsync(accountDTO);
+                return CreatedAtAction("login", new { ID=accountDTO.ID, userID = accountDTO.UserName , Password=accountDTO.Password }, accountDTO);
+
             }
             catch (Exception e)
             {

@@ -2,6 +2,7 @@
 {
     public class CustomersDTO :ViewModelBase
     {
+        public int AccountRefID { get; set; }
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public IFormFile? ProfilePhotoTouplode { get; set; } 
