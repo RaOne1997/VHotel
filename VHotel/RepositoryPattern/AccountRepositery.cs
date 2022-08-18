@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿ using AutoMapper;
 using EmployeeCrud.RepositoryPattern.RepositoryBase;
 using Microsoft.EntityFrameworkCore;
 using VHotel.DataAccess;
@@ -16,6 +16,22 @@ namespace VHotel.RepositoryPattern
         {
             this.db = db;
             this.mapper = mapper;
+        }
+
+
+        public async Task<int> getIdbyname(string userID)
+        {
+            var result = await (from a in DbSet
+                                where a.Email.Equals(userID) 
+                               
+                                select a.ID).SingleOrDefaultAsync();
+
+            if (result != null)
+            {
+                return result;
+            }
+            else
+                return result;
         }
 
         public async Task<Account> loginAsync(string userID, string Password)

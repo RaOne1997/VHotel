@@ -44,6 +44,17 @@ namespace VHotel.Services
             return accounts;
         }
 
+        public async Task<int> getidBYname(string userID)
+        {
+            var id = await _accountRepository.getIdbyname(userID);
+            return id;
+        }
+
+        public async Task<AccountDTO> getidBYname(int userID)
+        {
+            return await _accountRepository.GetByIdAsync<AccountDTO>(userID);
+        }
+
         public async Task<AccountDTO> login(string userID, string Password)
         {
            var  login = await _accountRepository.loginAsync(userID, Password);

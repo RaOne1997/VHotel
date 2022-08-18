@@ -7,6 +7,8 @@ namespace VHotel.Services
         Task<List<AccountDTO>> GetAllAsync();
 
         Task<AccountDTO> login(string userID, string Password);
+        Task<int> getidBYname(string userID);
+        Task<AccountDTO> getidBYname(int userID);
         Task CreateAsync(AccountDTO accountDTO);
        
     }

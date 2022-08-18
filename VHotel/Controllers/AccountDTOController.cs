@@ -19,25 +19,20 @@ namespace VHotel.Controllers
             _airlinrtServices = airlinrServices;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<AccountDTO>>> GetAmenuitiesDTO()
-        {
-            try
-            {
-                var citys = await _airlinrtServices.GetAllAsync();
-                if (citys.Count == 0)
-                {
 
-                    return Ok("NO record Found");
-                }
-                else
-                    return Ok(citys);
-            }
-            catch (Exception e)
-            {
-                //_logger.LogError(e, "Error in GetAll");
-                return Problem("Error in GetAll" + e);
-            }
+        [HttpGet]
+        public async Task<ActionResult<List<AccountDTO>>> logins()
+        {
+            var useraaa = await _airlinrtServices.GetAllAsync();
+            return useraaa;
+        }
+
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<AccountDTO>> logins(int id)
+        {
+            var useraaa =await _airlinrtServices.getidBYname(id);
+            return useraaa;
         }
 
 
@@ -72,7 +67,7 @@ namespace VHotel.Controllers
             {
                 
                 await _airlinrtServices.CreateAsync(accountDTO);
-                return CreatedAtAction("login", new { ID=accountDTO.ID, userID = accountDTO.UserName , Password=accountDTO.Password }, accountDTO);
+                return CreatedAtAction("logins", new { id=accountDTO.ID}, accountDTO);
 
             }
             catch (Exception e)
