@@ -1,9 +1,9 @@
 using AutoMapper;
 using NSubstitute;
-using VHotel.DataAccess.DTo;
-using VHotel.RepositoryPattern.Interface;
-using VHotel.Services;
-using VHotel.Services.Interface;
+using MakeMuTrip.DataAccess.DTo;
+using MakeMuTrip.RepositoryPattern.Interface;
+using MakeMuTrip.Services;
+using MakeMuTrip.Services.Interface;
 using Xunit;
 
 namespace VhotelTest

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using VHotel.DataAccess.DTo;
-using VHotel.DataAccess.Model.Master;
-using VHotel.RepositoryPattern.Interface;
+using MakeMuTrip.DataAccess.DTo;
+using MakeMuTrip.DataAccess.Model.Master;
+using MakeMuTrip.RepositoryPattern.Interface;
 
-namespace VHotel.Services
+namespace MakeMuTrip.Services
 {
     public class AccountService : IAccountService
     {
@@ -25,7 +25,7 @@ namespace VHotel.Services
                 var account = _mapper.Map<Account>(accountDTO);
                 await _accountRepository.CreateAsync(account);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -55,12 +55,11 @@ namespace VHotel.Services
             return await _accountRepository.GetByIdAsync<AccountDTO>(userID);
         }
 
-        public async Task<AccountDTO> login(string userID, string Password)
+        public async Task<int> login(string userID, string Password)
         {
-           var  login = await _accountRepository.loginAsync(userID, Password);
-            var logins = _mapper.Map<AccountDTO>(login);
-              
-            return logins;
+            var login = await _accountRepository.loginAsync(userID, Password);
+
+            return login;
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using staticclassmodel.DataAccess.Model.Master;
+﻿using staticclassmodel.DataAccess.Model.Masters;
 using staticclassmodel.DataAccess.Model.TransactionData;
-using VHotel.DataAccess.DTo;
-using VHotel.DataAccess.Model;
-using VHotel.DataAccess.Model.Master;
-using VHotel.DataAccess.Model.TransactionData;
+using MakeMuTrip.DataAccess.DTo;
+using MakeMuTrip.DataAccess.Model;
+using MakeMuTrip.DataAccess.Model.Master;
+using MakeMuTrip.DataAccess.Model.TransactionData;
 
-namespace VHotel.DataAccess
+namespace MakeMuTrip.DataAccess
 {
     public class Utility
     {
@@ -262,6 +262,7 @@ namespace VHotel.DataAccess
                     FlightScheduleRefId = 1,
                     CustomerContactMobile = 1,
                     CustomerContactEmail = Faker.Internet.Email(),
+                    AccountRefID = 1,
                     FlightCustomerDetails = new List<Customerinformation>
                     {
 

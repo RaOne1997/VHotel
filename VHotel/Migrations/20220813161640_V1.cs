@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace VHotel.Migrations
+namespace MakeMuTrip.Migrations
 {
     public partial class V1 : Migration
     {

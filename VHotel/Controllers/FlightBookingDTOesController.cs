@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using VHotel.DataAccess;
-using VHotel.DataAccess.DTo;
-using VHotel.Services;
-using VHotel.Services.Interface;
+using MakeMuTrip.DataAccess;
+using MakeMuTrip.DataAccess.DTo;
+using MakeMuTrip.Services;
+using MakeMuTrip.Services.Interface;
 
-namespace VHotel.Controllers
+namespace MakeMuTrip.Controllers
 {
     [Route("api/[controller]/[Action]")]
     [ApiController]
@@ -30,21 +30,31 @@ namespace VHotel.Controllers
             try
             {
                 var citys = await _flightBookingservices.getALlDec();
-                //if (citys.Count == 0)
-                //{
-
-                //    return Ok("NO record Found");
-                //}
-                //else
-                //else
+              
                     return citys;
             }
-            catch (Exception e)
-            {
-                //_logger.LogError(e, "Error in GetAll");
+            catch (Exception e) { 
+         
                 return Problem("Error in GetAll" + e);
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult<List<FlightBookingDTO>>> GetFlightBookingAllDTO()
+        {
+            try
+            {
+                var citys = await _flightBookingservices.GetAllAsync();
+            
+                return citys;
+            }
+            catch (Exception e)
+            {
+               
+                return Problem("Error in GetAll" + e);
+            }
+        }
+
 
         // GET: api/AmenuitiesDTOes/5
         [HttpGet("{id}")]

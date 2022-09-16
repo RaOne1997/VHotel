@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using VHotel.DataAccess;
-using staticclassmodel.DataAccess.Model.Master;
-using VHotel.DataAccess.DTo;
-using VHotel.Services;
-using VHotel.Services.Interface;
+using MakeMuTrip.DataAccess;
+using staticclassmodel.DataAccess.Model.Masters;
+using MakeMuTrip.DataAccess.DTo;
+using MakeMuTrip.Services;
+using MakeMuTrip.Services.Interface;
 
-namespace VHotel.Controllers
+namespace MakeMuTrip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

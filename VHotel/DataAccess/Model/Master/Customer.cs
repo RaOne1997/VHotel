@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using VHotel.DataAccess.Model.Master;
+using MakeMuTrip.DataAccess.Model.Master;
 
-namespace staticclassmodel.DataAccess.Model.Master
+namespace staticclassmodel.DataAccess.Model.Masters
 {
     public class Customer : DataModelBase
     {
@@ -20,6 +20,7 @@ namespace staticclassmodel.DataAccess.Model.Master
         public string? Address2 { get; set; }
         public string? Address3 { get; set; }
 
+        public char Gender { get; set; }  
         public int CityRefId { get; set; }
         [ForeignKey(nameof(CityRefId))]
 

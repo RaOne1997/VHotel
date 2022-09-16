@@ -5,20 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using VHotel.DataAccess;
-using staticclassmodel.DataAccess.Model.Master;
-using VHotel.Services.Interface;
-using VHotel.DataAccess.DTo;
+using MakeMuTrip.DataAccess;
+using staticclassmodel.DataAccess.Model.Masters;
+using MakeMuTrip.Services.Interface;
+using MakeMuTrip.DataAccess.DTo;
 
-namespace VHotel.Controllers
+namespace MakeMuTrip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly ICrudeServices<CustomersDTO> _airportServices;
+        private readonly ICustomers<CustomersDTO> _airportServices;
 
-        public CustomersController(ICrudeServices<CustomersDTO> airportServices)
+        public CustomersController(ICustomers<CustomersDTO> airportServices)
         {
             _airportServices = airportServices;
         }
@@ -50,8 +50,8 @@ namespace VHotel.Controllers
         {
             try
             {
-                var citys = await _airportServices.GetByIdAsync((int)id);
-                return Ok(citys);
+                var citys = await _airportServices.getREfID((int)id);
+                return citys;
             }
             catch (Exception e)
             {

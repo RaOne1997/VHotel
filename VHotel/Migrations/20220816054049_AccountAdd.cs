@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace VHotel.Migrations
+namespace MakeMuTrip.Migrations
 {
     public partial class AccountAdd : Migration
     {

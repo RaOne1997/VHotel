@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VHotel.DataAccess;
+using MakeMuTrip.DataAccess;
 
 #nullable disable
 
-namespace VHotel.Migrations
+namespace MakeMuTrip.Migrations
 {
     [DbContext(typeof(VhotelsSQLContex))]
     [Migration("20220813161640_V1")]

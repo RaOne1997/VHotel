@@ -1,6 +1,6 @@
-﻿using VHotel.DataAccess;
+﻿using MakeMuTrip.DataAccess;
 
-namespace staticclassmodel.Models
+namespace staticclassmodel.Modelss
 {
     public interface IStaticInsert
     {

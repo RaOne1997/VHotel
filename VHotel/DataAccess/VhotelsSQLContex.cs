@@ -1,13 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using staticclassmodel.DataAccess.Model.Master;
+using staticclassmodel.DataAccess.Model.Masters;
 using staticclassmodel.DataAccess.Model.TransactionData;
-using VHotel.DataAccess.DTo;
+using MakeMuTrip.DataAccess.DTo;
+using MakeMuTrip.DataAccess.Model.Master;
+using MakeMuTrip.DataAccess.Model.TransactionData;
 using VHotel.DataAccess.Model.Master;
-using VHotel.DataAccess.Model.TransactionData;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace VHotel.DataAccess
+namespace MakeMuTrip.DataAccess
 {
-    public class VhotelsSQLContex : DbContext
+    public class VhotelsSQLContex : IdentityDbContext<User>
     {
 
         public VhotelsSQLContex()

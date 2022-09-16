@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
-using staticclassmodel.DataAccess.Model.Master;
+using staticclassmodel.DataAccess.Model.Masters;
 using staticclassmodel.DataAccess.Model.TransactionData;
+using MakeMuTrip.DataAccess.DTo;
+using MakeMuTrip.DataAccess.Model.Master;
+using MakeMuTrip.DataAccess.Model.TransactionData;
 using VHotel.DataAccess.DTo;
 using VHotel.DataAccess.Model.Master;
-using VHotel.DataAccess.Model.TransactionData;
 
-namespace VHotel
+namespace MakeMuTrip
 {
     public class AutoMapperProfile : Profile
     {
@@ -105,6 +107,9 @@ namespace VHotel
                             .ReverseMap()
             .ForPath(em => em.State.StateName, opt => opt.Ignore());
 
+
+            CreateMap<UserForRegistrationDto, User>()
+                    .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
 
         }
     }

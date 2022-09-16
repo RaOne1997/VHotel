@@ -1,4 +1,4 @@
-﻿namespace VHotel.DataAccess.DTo
+﻿namespace MakeMuTrip.DataAccess.DTo
 {
     public class CustomersDTO : ViewModelBase
     {
@@ -12,6 +12,7 @@
         public string Address1 { get; set; } = null!;
         public string? Address2 { get; set; }
         public string? Address3 { get; set; }
+        public char Gender { get; set; }
         public int CityRefId { get; set; }
         public int StateRefId { get; set; }
         public int CountryRefId { get; set; }
