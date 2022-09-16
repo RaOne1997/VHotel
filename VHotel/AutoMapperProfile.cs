@@ -1,15 +1,20 @@
 ﻿using AutoMapper;
-using staticclassmodel.DataAccess.Model.Master;
+using staticclassmodel.DataAccess.Model.Masters;
 using staticclassmodel.DataAccess.Model.TransactionData;
+using MakeMuTrip.DataAccess.DTo;
+using MakeMuTrip.DataAccess.Model.Master;
+using MakeMuTrip.DataAccess.Model.TransactionData;
 using VHotel.DataAccess.DTo;
+using VHotel.DataAccess.Model.Master;
 
-namespace VHotel
+namespace MakeMuTrip
 {
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
             CreateMap<Room, RoomDTO>().ReverseMap();
+            CreateMap<Account, AccountDTO>().ReverseMap();
             CreateMap<Hotel, HotelDTO>().ReverseMap();
             CreateMap<Amenities, AmenuitiesDTO>().ReverseMap();
             CreateMap<HotelAmenitiesLink, HotelAmenitiesLinkDTO>().ReverseMap();
@@ -21,7 +26,7 @@ namespace VHotel
 
                 .ReverseMap().ForPath(em => em.flight.airlineDetails.AirlineName, opt => opt.Ignore())
                 .ForPath(em => em.flight.airlineDetails.AirlineLogo, opt => opt.Ignore())
-             
+
             ;
 
 
@@ -33,10 +38,60 @@ namespace VHotel
             CreateMap<Country, CountryDTO>().ReverseMap();
             CreateMap<Airport, AirportDTO>().ReverseMap();
             CreateMap<Flight, FlightDTO>().ReverseMap();
-            CreateMap<FlightBooking, FlightBookingDTO>().ReverseMap();
-            CreateMap<FlightBooking, FlightBookingDTO>().ReverseMap();
+
+
+            CreateMap<FlightBooking, FlightBookingInputDTO>().ReverseMap();
+            CreateMap<FlightBooking, FlightBookingInputDTO>().ReverseMap();
+
+            CreateMap<FlightBooking, FlightBookingDTO>()
+
+                      .ForMember(evw => evw.FlightCode, opt => opt.MapFrom(em => em.flightSchedule.flight.FlightCode))
+                                .ForMember(evw => evw.Fromairport, opt => opt.MapFrom(em => em.flightSchedule.flight.airportFrom.AirportName))
+                                .ForMember(evw => evw.FromAirportCode, opt => opt.MapFrom(em => em.flightSchedule.flight.airportFrom.AirportCode))
+                                .ForMember(evw => evw.Toairport, opt => opt.MapFrom(em => em.flightSchedule.flight.airportToAirport.AirportName))
+                                .ForMember(evw => evw.toAirportCode, opt => opt.MapFrom(em => em.flightSchedule.flight.airportToAirport.AirportCode))
+                                .ForMember(evw => evw.ArrivalDate, opt => opt.MapFrom(em => em.flightSchedule.ArrivalDate))
+                                .ForMember(evw => evw.DepartureDate, opt => opt.MapFrom(em => em.flightSchedule.DepartureDate))
+
+
+                .ReverseMap()
+                                .ForPath(em => em.flightSchedule.flight.airportFrom.AirportName, opt => opt.Ignore())
+                                .ForPath(em => em.flightSchedule.flight.airportFrom.AirportCode, opt => opt.Ignore())
+                                .ForPath(em => em.flightSchedule.flight.airportToAirport.AirportName, opt => opt.Ignore())
+                                .ForPath(em => em.flightSchedule.flight.airportToAirport.AirportCode, opt => opt.Ignore())
+                                .ForPath(em => em.flightSchedule.ArrivalDate, opt => opt.Ignore())
+                                .ForPath(em => em.flightSchedule.DepartureDate, opt => opt.Ignore())
+
+                .ForPath(em => em.flightSchedule.flight.FlightCode, opt => opt.Ignore());
+
+
+            CreateMap<FlightSchedule, BookingFlightDTO>()
+
+                      .ForMember(evw => evw.FlightCode, opt => opt.MapFrom(em => em.flight.FlightCode))
+                      .ForMember(evw => evw.FlightScheduleRefId, opt => opt.MapFrom(em => em.ID))
+                                .ForMember(evw => evw.Fromairport, opt => opt.MapFrom(em => em.flight.airportFrom.AirportName))
+                                .ForMember(evw => evw.FromAirportCode, opt => opt.MapFrom(em => em.flight.airportFrom.AirportCode))
+                                .ForMember(evw => evw.Toairport, opt => opt.MapFrom(em => em.flight.airportToAirport.AirportName))
+                                .ForMember(evw => evw.toAirportCode, opt => opt.MapFrom(em => em.flight.airportToAirport.AirportCode))
+                                .ForMember(evw => evw.ArrivalDate, opt => opt.MapFrom(em => em.ArrivalDate))
+                                .ForMember(evw => evw.DepartureDate, opt => opt.MapFrom(em => em.DepartureDate))
+
+
+                .ReverseMap()
+                                .ForPath(em => em.flight.airportFrom.AirportName, opt => opt.Ignore())
+                                .ForPath(em => em.flight.airportFrom.AirportCode, opt => opt.Ignore())
+                                .ForPath(em => em.flight.airportToAirport.AirportName, opt => opt.Ignore())
+                                .ForPath(em => em.flight.airportToAirport.AirportCode, opt => opt.Ignore())
+                                .ForPath(em => em.ArrivalDate, opt => opt.Ignore())
+                                .ForPath(em => em.DepartureDate, opt => opt.Ignore())
+                                .ForPath(em => em.flight.FlightCode, opt => opt.Ignore())
+                                .ForPath(em => em.ID, opt => opt.Ignore());
+
+
             CreateMap<HotelBooking, HotelBookingDTO>().ReverseMap();
             CreateMap<HotelCustomerDetail, HotelCustomerDetailDTO>().ReverseMap();
+
+            CreateMap<Customerinformation, CustomerinformationDTO>().ReverseMap();
 
 
 
@@ -52,6 +107,9 @@ namespace VHotel
                             .ReverseMap()
             .ForPath(em => em.State.StateName, opt => opt.Ignore());
 
+
+            CreateMap<UserForRegistrationDto, User>()
+                    .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
 
         }
     }

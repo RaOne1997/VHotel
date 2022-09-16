@@ -1,6 +1,7 @@
-﻿using staticclassmodel.DataAccess.Model.Master;
+﻿using staticclassmodel.DataAccess.Model.Masters;
 using System.ComponentModel.DataAnnotations.Schema;
-using VHotel.DataAccess.Model.TransactionData;
+using MakeMuTrip.DataAccess.Model.TransactionData;
+using MakeMuTrip.DataAccess.Model.Master;
 
 namespace staticclassmodel.DataAccess.Model.TransactionData
 {
@@ -17,7 +18,10 @@ namespace staticclassmodel.DataAccess.Model.TransactionData
 
         public int CustomerContactMobile { get; set; }
         public string CustomerContactEmail { get; set; } = null!;
-        List<Customerinformation> FlightCustomerDetails { get; set; }
+        public int AccountRefID { get; set; }
+        [ForeignKey(nameof(AccountRefID))]
+        public Account Accounts { get; set; }
+        public ICollection<Customerinformation> FlightCustomerDetails { get; set; }
 
     }
 

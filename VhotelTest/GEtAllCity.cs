@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using NSubstitute;
-using staticclassmodel.DataAccess.Model.Master;
+using staticclassmodel.DataAccess.Model.Masters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VHotel.DataAccess.DTo;
-using VHotel.RepositoryPattern.Interface;
-using VHotel.Services;
-using VHotel.Services.Interface;
+using MakeMuTrip.DataAccess.DTo;
+using MakeMuTrip.RepositoryPattern.Interface;
+using MakeMuTrip.Services;
+using MakeMuTrip.Services.Interface;
 
 namespace VhotelTest
 {
@@ -39,11 +39,11 @@ namespace VhotelTest
                 new () {ID=2,CityName ="Mumbai", stateRefID = 1, stateName = "Maharashtra"},
                 new () {ID=5,CityName ="Banglore", stateRefID = 2, stateName = "Karnataka"},
             };
-            var cityMasterdtos = expectedCitys
-               .Select(d => _mapper.Map<CityMaster>(d))
-               .ToList();
+            var cityMasterd = expectedCitys
+              .Select(d => _mapper.Map<CityMaster>(d))
+              .ToList();
             //var city = _mapper.Map<CityMaster>(expectedCitys);
-            _CityRepository.GetAllAsync<CityMasterdto>().Returns(expectedCitys);
+             _CityRepository.GetAllAsync<CityMaster>().Returns(cityMasterd);
 
             var Citys = await _cityServices.GetAllAsync();
 

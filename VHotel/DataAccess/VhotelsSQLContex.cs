@@ -1,18 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using staticclassmodel.DataAccess.Model.Master;
+using staticclassmodel.DataAccess.Model.Masters;
 using staticclassmodel.DataAccess.Model.TransactionData;
-using VHotel.DataAccess.DTo;
-using VHotel.DataAccess.Model.TransactionData;
+using MakeMuTrip.DataAccess.DTo;
+using MakeMuTrip.DataAccess.Model.Master;
+using MakeMuTrip.DataAccess.Model.TransactionData;
+using VHotel.DataAccess.Model.Master;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace VHotel.DataAccess
+namespace MakeMuTrip.DataAccess
 {
-    public class VhotelsSQLContex : DbContext
+    public class VhotelsSQLContex : IdentityDbContext<User>
     {
 
         public VhotelsSQLContex()
         {
         }
 
+        public DbSet<Account> accounts { get; set; } = null!;
         public DbSet<Country> countries { get; set; } = null!;
         public DbSet<Customerinformation> CustomerInformation { get; set; } = null!;
         public DbSet<Hotel> hotels { get; set; } = null!;
@@ -24,6 +28,7 @@ namespace VHotel.DataAccess
         public DbSet<Customer> customers { get; set; } = null!;
         public DbSet<AirlineDetails> airlineDetails { get; set; } = null!;
         public DbSet<Amenities> amenities { get; set; } = null!;
+        public DbSet<Flight>  Flights { get; set; } = null!;
         public DbSet<HotelAmenitiesLink> hotelAmenitiesLink { get; set; } = null!;
 
         public DbSet<FlightBooking> flightBookings { get; set; } = null!;
@@ -35,9 +40,7 @@ namespace VHotel.DataAccess
             : base(options)
         {
         }
-        public DbSet<VHotel.DataAccess.DTo.FlightBookingDTO> FlightBookingDTO { get; set; }
-        public DbSet<VHotel.DataAccess.DTo.HotelBookingDTO> HotelBookingDTO { get; set; }
-        public DbSet<VHotel.DataAccess.DTo.HotelCustomerDetailDTO> HotelCustomerDetailDTO { get; set; }
+       
     
       
     }
