@@ -1,4 +1,6 @@
-﻿namespace VHotel.DataAccess.Model.security
+﻿using VHotel.DataAccess.Model.Master;
+
+namespace VHotel.DataAccess.Model.security
 {
     public class JwtSecuritySettings
     {
@@ -9,6 +11,10 @@
     {
         public string Token { get; set; }
         public DateTime ExpiryDateTime { get; set; }
+
+        public User users { get; set; }
+
+        public string Role { get; set; }
     }
     public class TokenCredential
     {

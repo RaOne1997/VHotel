@@ -104,7 +104,7 @@ namespace MakeMuTrip.Controllers
                 return Problem("Error in GetAll" + e + false);
             }
         }
-        [HttpPost("Registration")]
+        [HttpPost]
         public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
         {
             if (userForRegistration == null || !ModelState.IsValid)
@@ -117,89 +117,91 @@ namespace MakeMuTrip.Controllers
                 var errors = result.Errors.Select(e => e.Description);
                 return BadRequest(new RegistrationResponseDto { Errors = errors });
             }
-           
+
             return Ok(new RegistrationResponseDto { IsSuccessfulRegistration = result.Succeeded });
         }
         [HttpPost]
-        public async Task<ActionResult<User>> Login(LoginViewModel user)
-        {            //try
-            //{
-               var authResponse = _authTokenService.GetAuthToken(user.Email, user.Password);
-
-               return Ok(authResponse);
-            //}
-            //catch (Exception e)
-            //{
-            //    _logger.LogError(e, "Error getting Auth token");
-            //    return BadRequest(e.Message);
-            //}
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest();
-            //}
-            //else
-            //{
-            //    var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, lockoutOnFailure: false);
-
-            //    if (result.Succeeded)
-            //    {
-            //        var users = await _userManager.FindByNameAsync(user.Email);
-            //        return users;
-            //    }
-            //    else
-            //    {
-            //        return NotFound();
-            //    }
-            //}
-
-
-            //return false;
-        }
-
-        [HttpGet]
-        [Authorize]
-        public async Task<ActionResult<User>> getalluser( )
-        {            //try
-                     //{
-            var user = await _userManager.FindByEmailAsync("varade@gmail.ocm");
-
-            return Ok(user);
-            //}
-            //catch (Exception e)
-            //{
-            //    _logger.LogError(e, "Error getting Auth token");
-            //    return BadRequest(e.Message);
-            //}
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest();
-            //}
-            //else
-            //{
-            //    var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, lockoutOnFailure: false);
-
-            //    if (result.Succeeded)
-            //    {
-            //        var users = await _userManager.FindByNameAsync(user.Email);
-            //        return users;
-            //    }
-            //    else
-            //    {
-            //        return NotFound();
-            //    }
-            //}
-
-
-            //return false;
-        }
-
-
-        [HttpGet]
-        public async Task<IActionResult> Logout()
+        public async Task<ActionResult<object>> Login(LoginViewModel user)
         {
-            await _signInManager.SignOutAsync();
-            return Ok("Logouts");
-        }
-    }
+            try
+            {
+                var authResponse = await _authTokenService.GetAuthTokenAsync(user);
 
-}
+
+                return authResponse;
+            }
+            catch (AuthFailedException e)
+            {
+                //_logger.LogError(e.Message);
+                return  StatusCode( 400 , e.Message);   
+            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest();
+            //}
+            //else
+            //{
+            //    var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, lockoutOnFailure: false);
+
+            //    if (result.Succeeded)
+            //    {
+            //        var users = await _userManager.FindByNameAsync(user.Email);
+            //        return users;
+            //    }
+            //    else
+            //    {
+            //        return NotFound();
+            //    }
+            //}
+
+
+            //return false;
+        }
+
+        [HttpGet("{ID}")]
+
+            public async Task<ActionResult<User>> getalluser(string ID)
+            {            //try
+                         //{
+                var user = await _userManager.FindByIdAsync(ID);
+
+                return Ok(user);
+                //}
+                //catch (Exception e)
+                //{
+                //    _logger.LogError(e, "Error getting Auth token");
+                //    return BadRequest(e.Message);
+                //}
+                //if (!ModelState.IsValid)
+                //{
+                //    return BadRequest();
+                //}
+                //else
+                //{
+                //    var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, lockoutOnFailure: false);
+
+                //    if (result.Succeeded)
+                //    {
+                //        var users = await _userManager.FindByNameAsync(user.Email);
+                //        return users;
+                //    }
+                //    else
+                //    {
+                //        return NotFound();
+                //    }
+                //}
+
+
+                //return false;
+            }
+
+
+            [HttpGet]
+            public async Task<IActionResult> Logout()
+            {
+                await _signInManager.SignOutAsync();
+                return Ok("Logouts");
+            }
+        }
+
+    }
