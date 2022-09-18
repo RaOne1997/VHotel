@@ -1,4 +1,5 @@
-﻿using staticclassmodel.DataAccess.Model.Masters;
+﻿using MakeMuTrip.DataAccess.Model.TransactionData;
+using staticclassmodel.DataAccess.Model.Masters;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace staticclassmodel.DataAccess.Model.TransactionData
@@ -12,7 +13,7 @@ namespace staticclassmodel.DataAccess.Model.TransactionData
         public FlightBooking flightBooking { get; set; } = null!;
         public int CustomerRefId { get; set; }
         [ForeignKey(nameof(CustomerRefId))]
-        public Customer customer { get; set; } = null!;
+        public Customerinformation customer { get; set; } = null!;
     }
 
 }
