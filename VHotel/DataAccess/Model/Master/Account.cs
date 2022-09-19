@@ -1,7 +1,7 @@
 ﻿using staticclassmodel.DataAccess.Model.Masters;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MakeMuTrip.DataAccess.Model.Master
+namespace Vhotel.DataAccess.Model.Master
 {
     [Table("Account", Schema = "Master")]
     public class Account : DataModelBase

@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using staticclassmodel.DataAccess.Model.Masters;
 using staticclassmodel.DataAccess.Model.TransactionData;
-using MakeMuTrip.DataAccess.DTo;
-using MakeMuTrip.DataAccess.Model.Master;
-using MakeMuTrip.DataAccess.Model.TransactionData;
+
 using VHotel.DataAccess.Model.Master;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Vhotel.DataAccess.Model.Master;
+using Vhotel.DataAccess.Model.TransactionData;
 
 namespace MakeMuTrip.DataAccess
 {

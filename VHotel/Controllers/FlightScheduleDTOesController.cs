@@ -115,7 +115,7 @@ namespace MakeMuTrip.Controllers
         }
         [HttpGet("{locationFrom}/{locationTo}/{date}")]
         public async Task<ActionResult<List<FlightScheduleDTO>>> GetFlight(string locationFrom, string locationTo, DateTime date)
-        {
+            {
             var axp = await _flightServices.SearchFlight(locationFrom, locationTo, date);
             return axp;
         }

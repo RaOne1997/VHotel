@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using MakeMuTrip.DataAccess.Model.Master;
+using Vhotel.DataAccess.Model.Master;
 
 namespace staticclassmodel.DataAccess.Model.Masters
 {

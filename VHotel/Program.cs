@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using VHotel.Services;
 using VHotel.DataAccess.Model.security;
+using staticclassmodel.Modelss;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();

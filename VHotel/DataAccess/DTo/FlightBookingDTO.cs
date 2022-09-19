@@ -15,7 +15,7 @@
         public string Toairport { get; set; } = null!;
         public string FromAirportCode { get; set; } = null!;
         public string toAirportCode { get; set; } = null!;
-        public int AccountRefID { get; set; }   
+        public Guid AccountRefID { get; set; }   
         public ICollection<CustomerinformationDTO> FlightCustomerDetails { get; set; }
     }
 
@@ -28,7 +28,7 @@
         public int FlightScheduleRefId { get; set; }
         public int CustomerContactMobile { get; set; }
         public string CustomerContactEmail { get; set; } = null!;
-  
+        public Guid AccountRefID { get; set; }
         public ICollection<CustomerinformationDTO> FlightCustomerDetails { get; set; }
     }
 

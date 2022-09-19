@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MakeMuTrip.DataAccess.DTo;
-using MakeMuTrip.DataAccess.Model.Master;
 using MakeMuTrip.Services;
-using MakeMuTrip.Services.Interface;
+
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using VHotel.DataAccess.Model.Master;
@@ -133,7 +132,7 @@ namespace MakeMuTrip.Controllers
             catch (AuthFailedException e)
             {
                 //_logger.LogError(e.Message);
-                return  StatusCode( 400 , e.Message);   
+                return StatusCode(400, e.Message);
             }
             //if (!ModelState.IsValid)
             //{
@@ -160,48 +159,20 @@ namespace MakeMuTrip.Controllers
 
         [HttpGet("{ID}")]
 
-            public async Task<ActionResult<User>> getalluser(string ID)
-            {            //try
-                         //{
-                var user = await _userManager.FindByIdAsync(ID);
+        public async Task<ActionResult<User>> getalluser(string ID)
+        {
+            var user = await _userManager.FindByIdAsync(ID);
+            return Ok(user);
 
-                return Ok(user);
-                //}
-                //catch (Exception e)
-                //{
-                //    _logger.LogError(e, "Error getting Auth token");
-                //    return BadRequest(e.Message);
-                //}
-                //if (!ModelState.IsValid)
-                //{
-                //    return BadRequest();
-                //}
-                //else
-                //{
-                //    var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, lockoutOnFailure: false);
-
-                //    if (result.Succeeded)
-                //    {
-                //        var users = await _userManager.FindByNameAsync(user.Email);
-                //        return users;
-                //    }
-                //    else
-                //    {
-                //        return NotFound();
-                //    }
-                //}
-
-
-                //return false;
-            }
-
-
-            [HttpGet]
-            public async Task<IActionResult> Logout()
-            {
-                await _signInManager.SignOutAsync();
-                return Ok("Logouts");
-            }
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Ok("Logouts");
+        }
     }
+
+}

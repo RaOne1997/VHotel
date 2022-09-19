@@ -1,9 +1,10 @@
-﻿using staticclassmodel.DataAccess.Model.Masters;
+﻿using Microsoft.AspNetCore.Identity;
+using staticclassmodel.DataAccess.Model.Masters;
 using staticclassmodel.DataAccess.Model.TransactionData;
-using MakeMuTrip.DataAccess.DTo;
-using MakeMuTrip.DataAccess.Model;
-using MakeMuTrip.DataAccess.Model.Master;
-using MakeMuTrip.DataAccess.Model.TransactionData;
+using Vhotel.DataAccess.Model.Master;
+using Vhotel.DataAccess.Model.TransactionData;
+using VHotel.DataAccess.Model.Master;
+using Vhotels.DataAccess.Model;
 
 namespace MakeMuTrip.DataAccess
 {
@@ -211,7 +212,7 @@ namespace MakeMuTrip.DataAccess
 
             };
 
-                return account;
+            return account;
         }
 
 
@@ -250,43 +251,44 @@ namespace MakeMuTrip.DataAccess
         }
 
 
-        public static List<FlightBooking> InsertFlightBooking()
-        {
-            var list = new List<FlightBooking>();
+        //public static List<FlightBooking> InsertFlightBooking()
+        //{
+        //    var list = new List<FlightBooking>();
 
-            for (int i = 0; i < 2; i++)
-            {
-                var airpot = new FlightBooking
-                {
-                    PassengerNameRecord = 2,
-                    FlightScheduleRefId = 1,
-                    CustomerContactMobile = 1,
-                    CustomerContactEmail = Faker.Internet.Email(),
-                    AccountRefID = 1,
-                    FlightCustomerDetails = new List<Customerinformation>
-                    {
+        //    for (int i = 0; i < 2; i++)
+        //    {
+               
+        //        var airpot = new FlightBooking
+        //        {
+        //            PassengerNameRecord = 2,
+        //            FlightScheduleRefId = 1,
+        //            CustomerContactMobile = 1,
+        //            CustomerContactEmail = Faker.Internet.Email(),
+                    
+        //            FlightCustomerDetails = new List<Customerinformation>
+        //            {
 
-                    new Customerinformation { PassengerName = Faker.Name.First(),
-                        Age = 25,
-                        Gender = 'M' },
-                     new Customerinformation { PassengerName = Faker.Name.First(),
-                        Age = 25,
-                        Gender = 'F' }
+        //            new Customerinformation { PassengerName = Faker.Name.First(),
+        //                Age = 25,
+        //                Gender = 'M' },
+        //             new Customerinformation { PassengerName = Faker.Name.First(),
+        //                Age = 25,
+        //                Gender = 'F' }
 
-                    }
-
-
-
-                };
-                list.Add(airpot);
-            }
+        //            }
 
 
 
-            return list;
-        }
+        //        };
+        //        list.Add(airpot);
+        //    }
 
-         public static List<AirlineDetails> InsertAirline()
+
+
+        //    return list;
+        //}
+
+        public static List<AirlineDetails> InsertAirline()
         {
             var list = new List<AirlineDetails>();
 
@@ -298,7 +300,7 @@ namespace MakeMuTrip.DataAccess
                     ShortName = "AirIndia",
                     HelplineNumber = 88732097423,
                     Email1 = Faker.Internet.Email(),
-                   
+
                 };
                 list.Add(airpot);
             }
@@ -318,8 +320,8 @@ namespace MakeMuTrip.DataAccess
                 {
                     FlightCode = "AirIndia",
                     AirlineRefId = 1,
-                    FromAirportRefId=1,
-                    ToAirportRefId=2
+                    FromAirportRefId = 1,
+                    ToAirportRefId = 2
 
                 };
                 list.Add(airpot);
@@ -332,20 +334,38 @@ namespace MakeMuTrip.DataAccess
 
         public static FlightSchedule InsertSchedule()
         {
-                                 
-                var Flightshedul = new FlightSchedule
-                {
-                    FlightRefId = 1,
-                    DepartureDate = DateTime.Parse("2022-07-22") ,
-                    ArrivalDate = DateTime.Parse("2022-07-24"),
-                    
 
-                };
+            var Flightshedul = new FlightSchedule
+            {
+                FlightRefId = 1,
+                DepartureDate = DateTime.Parse("2022-07-22"),
+                ArrivalDate = DateTime.Parse("2022-07-24"),
 
-                    return Flightshedul;
+
+            };
+
+            return Flightshedul;
         }
 
 
+
+        public static List<IdentityRole> InsertRoles()
+        {
+            var roles = new List<IdentityRole>();
+            foreach (var rol in StaticValue.Roles)
+            {
+                var role = new IdentityRole
+                {
+                    Name = rol,
+                };
+
+                roles.Add(role);
+            }
+
+            return roles;
+        }
+
+      
         enum statename
         {
             Canada = 40,

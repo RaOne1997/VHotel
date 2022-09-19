@@ -2,7 +2,7 @@
 using staticclassmodel.DataAccess.Model.TransactionData;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MakeMuTrip.DataAccess.Model.TransactionData
+namespace Vhotel.DataAccess.Model.TransactionData
 {
  
     public class Customerinformation : DataModelBase

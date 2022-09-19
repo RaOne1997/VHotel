@@ -1,4 +1,4 @@
-﻿namespace MakeMuTrip.DataAccess.Model
+﻿namespace Vhotels.DataAccess.Model
 {
     public static class StaticValue
     {
@@ -126,7 +126,9 @@
 
         };
         public static List<string> AirportCode = new() { "BOM","NGA","PQN","IXU","AMD","MAA"};
-        public static List<int> AirportCity = new() { 17,21,25,4,25,8};
+        public static List<int> AirportCity = new() { 17, 21, 25, 4, 25, 8 };
+
+              public static List<string> Roles = new() { "Admin", "Super", "User", "Airline", "Hotel"};
 
 
 

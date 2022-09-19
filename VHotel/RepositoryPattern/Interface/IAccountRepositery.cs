@@ -1,7 +1,8 @@
 ﻿using EmployeeCrud.RepositoryPattern.RepositoryBase;
 using MakeMuTrip.DataAccess.DTo;
-using MakeMuTrip.DataAccess.Model.Master;
+
 using staticclassmodel.DataAccess.Model.Masters;
+using Vhotel.DataAccess.Model.Master;
 
 namespace MakeMuTrip.RepositoryPattern.Interface
 {

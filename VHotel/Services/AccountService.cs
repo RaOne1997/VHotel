@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using MakeMuTrip.DataAccess.DTo;
-using MakeMuTrip.DataAccess.Model.Master;
+
 using MakeMuTrip.RepositoryPattern.Interface;
+using Vhotel.DataAccess.Model.Master;
 
 namespace MakeMuTrip.Services
 {

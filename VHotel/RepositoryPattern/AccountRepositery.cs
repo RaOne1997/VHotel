@@ -2,10 +2,11 @@
 using EmployeeCrud.RepositoryPattern.RepositoryBase;
 using Microsoft.EntityFrameworkCore;
 using MakeMuTrip.DataAccess;
-using MakeMuTrip.DataAccess.Model.Master;
+
 using MakeMuTrip.RepositoryPattern.Interface;
 using staticclassmodel.DataAccess.Model.Masters;
 using MakeMuTrip.DataAccess.DTo;
+using Vhotel.DataAccess.Model.Master;
 
 namespace MakeMuTrip.RepositoryPattern
 {
