@@ -9,6 +9,12 @@ using MakeMuTrip.DataAccess;
 using MakeMuTrip.DataAccess.DTo;
 using MakeMuTrip.Services;
 using MakeMuTrip.Services.Interface;
+using Microsoft.CodeAnalysis.Scripting;
+using NuGet.Common;
+using staticclassmodel.DataAccess.Model.Masters;
+using Stripe.Checkout;
+using Newtonsoft.Json;
+using Stripe;
 
 namespace MakeMuTrip.Controllers
 {
@@ -21,6 +27,8 @@ namespace MakeMuTrip.Controllers
         public FlightBookingDTOesController(IFlightBookingServices flightBookingservices)
         {
             _flightBookingservices = flightBookingservices;
+
+            StripeConfiguration.ApiKey = "sk_test_51Lk1GASGq2HiStuWUB6PECa0biYRjNx4MYQrkElcOeC2HCGR1TBdkX1K9KLPCwIu0ysTJLwc8gB47GNSa5Vjb8i000EpubBnTT";
         }
 
         // GET: api/AmenuitiesDTOes
@@ -161,6 +169,95 @@ namespace MakeMuTrip.Controllers
         }
 
 
+        [HttpPost("priceID")]
+        public IActionResult aaaa([FromBody] CreateCheckoutSessionRequest req)
+        {
 
+            var options = new PriceCreateOptions
+            {
+                UnitAmount = 1000,
+                Currency = "usd",
+                Recurring = new PriceRecurringOptions
+                {
+                    Interval = "month",
+                },
+                Product = "prod_MSuJo5coDjmBCv",
+            };
+            var service = new PriceService();
+            service.Create(options);
+            return Ok(service);
+
+
+        }
+
+
+        [HttpPost("createcheckoutsession")]
+        public async Task<IActionResult> CreateCheckoutSession([FromBody] CreateCheckoutSessionRequest req)
+        {
+            var options = new SessionCreateOptions
+            {
+                SuccessUrl = "http://localhost:4200/success",
+                CancelUrl = "http://localhost:4200/failure",
+                PaymentMethodTypes = new List<string>
+                {
+                    "card",
+                },
+                Mode = "subscription",
+                LineItems = new List<SessionLineItemOptions>
+                {
+                    new SessionLineItemOptions
+                    {
+                        
+                        Price = req.PriceId,
+                        Quantity = 1,
+                    },
+                },
+            };
+
+            var service = new SessionService();
+            service.Create(options);
+            try
+            {
+                var session = await service.CreateAsync(options);
+                return Ok(new CreateCheckoutSessionResponse
+                {
+                    SessionId = session.Id,
+                });
+            }
+            catch (StripeException e)
+            {
+                Console.WriteLine(e.StripeError.Message);
+                return BadRequest(new ErrorResponse
+                {
+                    ErrorMessage = new ErrorMessage
+                    {
+                        Message = e.StripeError.Message,
+                    }
+                });
+            }
+        }
+
+    
+
+
+    }
+
+    public class CreateCheckoutSessionRequest
+    {
+        [JsonProperty("priceId")]
+        public string PriceId { get; set; }
+    }
+    public class CreateCheckoutSessionResponse
+    {
+        public string SessionId { get; set; }
+    }
+    public class ErrorMessage
+    {
+        public string Message { get; set; }
+    }
+
+    public class ErrorResponse
+    {
+        public ErrorMessage ErrorMessage { get; set; }
     }
 }

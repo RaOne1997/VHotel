@@ -20,7 +20,7 @@ namespace staticclassmodel.DataAccess.Model.TransactionData
 
         public int CustomerContactMobile { get; set; }
         public string CustomerContactEmail { get; set; } = null!;
-        public string AccountRefID { get; set; }
+        public string  AccountRefID { get; set; }
         [ForeignKey(nameof(AccountRefID))]
         public User Accounts { get; set; }
         public ICollection<Customerinformation> FlightCustomerDetails { get; set; }

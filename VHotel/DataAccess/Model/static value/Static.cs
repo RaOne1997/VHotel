@@ -35,14 +35,14 @@ namespace staticclassmodel.Models
             {
 
             }
-            var count11 = _vhotelsSQLContex.accounts.ToList();
-            if (count11.Count == 0)
-            {
+            //var count11 = _vhotelsSQLContex.accounts.ToList();
+            //if (count11.Count == 0)
+            //{
 
-                _vhotelsSQLContex.accounts.Add(Utility.InsertAccount());
-                _vhotelsSQLContex.SaveChanges();
+            //    _vhotelsSQLContex.accounts.Add(Utility.InsertAccount());
+            //    _vhotelsSQLContex.SaveChanges();
 
-            }
+            //}
             var count = _vhotelsSQLContex.countries.ToList();
             if (count.Count == 0)
             {
@@ -120,7 +120,7 @@ namespace staticclassmodel.Models
                 }
             }
 
-            var count7 = _vhotelsSQLContex.flightBookings.ToList();
+            var count7 = _vhotelsSQLContex.flightSchedules.ToList();
             if (count7.Count == 0)
             {
                 _vhotelsSQLContex.flightSchedules.Add(Utility.InsertSchedule());

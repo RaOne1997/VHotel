@@ -201,19 +201,19 @@ namespace MakeMuTrip.DataAccess
             return city;
         }
 
-        public static Account InsertAccount()
-        {
-            var account = new Account
-            {
-                Email = "varadeabhijeet@gmail.com",
-                UserName = "Abhijeet",
-                Phone = "7057445611",
-                Password = "Abhi@123"
+        //public static Account InsertAccount()
+        //{
+        //    var account = new Account
+        //    {
+        //        Email = "varadeabhijeet@gmail.com",
+        //        UserName = "Abhijeet",
+        //        Phone = "7057445611",
+        //        Password = "Abhi@123"
 
-            };
+        //    };
 
-            return account;
-        }
+        //    return account;
+        //}
 
 
         public static List<Airport> InsertAirport()

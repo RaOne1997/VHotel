@@ -1,4 +1,4 @@
-﻿using MakeMuTrip.DataAccess.Model.TransactionData;
+﻿
 using staticclassmodel.DataAccess.Model.Masters;
 using System.ComponentModel.DataAnnotations.Schema;
 using Vhotel.DataAccess.Model.TransactionData;

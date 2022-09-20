@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace MakeMuTrip.Migrations
+namespace VHotel.Migrations
 {
     [DbContext(typeof(VhotelsSQLContex))]
     partial class VhotelsSQLContexModelSnapshot : ModelSnapshot
