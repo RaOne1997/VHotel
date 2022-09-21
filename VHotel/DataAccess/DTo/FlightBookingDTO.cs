@@ -1,4 +1,6 @@
-﻿namespace MakeMuTrip.DataAccess.DTo
+﻿using System.Data.SqlTypes;
+
+namespace MakeMuTrip.DataAccess.DTo
 {
     public class FlightBookingDTO : ViewModelBase
     {
@@ -45,6 +47,7 @@
         public string Toairport { get; set; } = null!;
         public string FromAirportCode { get; set; } = null!;
         public string toAirportCode { get; set; } = null!;
+        public decimal price { get; set; }
 
 
     }

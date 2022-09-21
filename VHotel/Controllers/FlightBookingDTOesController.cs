@@ -38,11 +38,12 @@ namespace MakeMuTrip.Controllers
             try
             {
                 var citys = await _flightBookingservices.getALlDec();
-              
-                    return citys;
+
+                return citys;
             }
-            catch (Exception e) { 
-         
+            catch (Exception e)
+            {
+
                 return Problem("Error in GetAll" + e);
             }
         }
@@ -53,12 +54,12 @@ namespace MakeMuTrip.Controllers
             try
             {
                 var citys = await _flightBookingservices.GetAllAsync();
-            
+
                 return citys;
             }
             catch (Exception e)
             {
-               
+
                 return Problem("Error in GetAll" + e);
             }
         }
@@ -164,100 +165,8 @@ namespace MakeMuTrip.Controllers
                 //_logger.LogError(e, "Error in GetAll");
                 return Problem("Error in Delete" + ex);
             }
-
-
         }
-
-
-        [HttpPost("priceID")]
-        public IActionResult aaaa([FromBody] CreateCheckoutSessionRequest req)
-        {
-
-            var options = new PriceCreateOptions
-            {
-                UnitAmount = 1000,
-                Currency = "usd",
-                Recurring = new PriceRecurringOptions
-                {
-                    Interval = "month",
-                },
-                Product = "prod_MSuJo5coDjmBCv",
-            };
-            var service = new PriceService();
-            service.Create(options);
-            return Ok(service);
-
-
-        }
-
-
-        [HttpPost("createcheckoutsession")]
-        public async Task<IActionResult> CreateCheckoutSession([FromBody] CreateCheckoutSessionRequest req)
-        {
-            var options = new SessionCreateOptions
-            {
-                SuccessUrl = "http://localhost:4200/success",
-                CancelUrl = "http://localhost:4200/failure",
-                PaymentMethodTypes = new List<string>
-                {
-                    "card",
-                },
-                Mode = "subscription",
-                LineItems = new List<SessionLineItemOptions>
-                {
-                    new SessionLineItemOptions
-                    {
-                        
-                        Price = req.PriceId,
-                        Quantity = 1,
-                    },
-                },
-            };
-
-            var service = new SessionService();
-            service.Create(options);
-            try
-            {
-                var session = await service.CreateAsync(options);
-                return Ok(new CreateCheckoutSessionResponse
-                {
-                    SessionId = session.Id,
-                });
-            }
-            catch (StripeException e)
-            {
-                Console.WriteLine(e.StripeError.Message);
-                return BadRequest(new ErrorResponse
-                {
-                    ErrorMessage = new ErrorMessage
-                    {
-                        Message = e.StripeError.Message,
-                    }
-                });
-            }
-        }
-
-    
-
-
     }
 
-    public class CreateCheckoutSessionRequest
-    {
-        [JsonProperty("priceId")]
-        public string PriceId { get; set; }
-    }
-    public class CreateCheckoutSessionResponse
-    {
-        public string SessionId { get; set; }
-    }
-    public class ErrorMessage
-    {
-        public string Message { get; set; }
-    }
 
-    public class ErrorResponse
-    {
-        public ErrorMessage ErrorMessage { get; set; }
-    }
 }
