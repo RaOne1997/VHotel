@@ -3,6 +3,7 @@ using EmployeeCrud.RepositoryPattern.RepositoryBase;
 using staticclassmodel.DataAccess.Model.Masters;
 using MakeMuTrip.DataAccess;
 using MakeMuTrip.RepositoryPattern.Interface;
+using VHotel.Migrations;
 
 namespace MakeMuTrip.RepositoryPattern
 {
@@ -14,6 +15,15 @@ namespace MakeMuTrip.RepositoryPattern
         {
              _db = db;
             _mapper = mapper;
+        }
+
+
+
+        public async Task IsActiveornot()
+        {
+            var objects = await DbSet.FindAsync(1);
+
+            objects.Isactive = true;
         }
     }
 }

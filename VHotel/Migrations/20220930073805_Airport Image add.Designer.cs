@@ -4,6 +4,7 @@ using MakeMuTrip.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace VHotel.Migrations
 {
     [DbContext(typeof(VhotelsSQLContex))]
-    partial class VhotelsSQLContexModelSnapshot : ModelSnapshot
+    [Migration("20220930073805_Airport Image add")]
+    partial class AirportImageadd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,9 +225,6 @@ namespace VHotel.Migrations
 
                     b.Property<string>("Email2public")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("Isactive")
-                        .HasColumnType("bit");
 
                     b.Property<string>("PinCode")
                         .HasColumnType("nvarchar(max)");

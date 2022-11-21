@@ -38,7 +38,10 @@ namespace MakeMuTrip
                 .ReverseMap().ForPath(em => em.StateName, opt => opt.Ignore()); ;
 
             CreateMap<Country, CountryDTO>().ReverseMap();
-            CreateMap<Airport, AirportDTO>().ReverseMap();
+            CreateMap<Airport, AirportDTO>()
+                    .ForMember(evw => evw.CityName, opt => opt.MapFrom(em => em.CityMaster.CityName))
+
+                .ReverseMap().ForPath(em => em.CityMaster.CityName, opt => opt.Ignore());
             CreateMap<Flight, FlightDTO>().ReverseMap();
 
 

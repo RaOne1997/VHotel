@@ -5,5 +5,6 @@ namespace MakeMuTrip.RepositoryPattern.Interface
 {
     public interface ICityRepository : IRepository<CityMaster>
     {
+       
     }
 }

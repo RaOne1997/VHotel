@@ -64,6 +64,11 @@ namespace MakeMuTrip.Services
             return cityDTO;
         }
 
+        public Task<List<DropDownViewModel>> GetCityForDropDownAsync()
+        {
+            return null;
+        }
+
         public async Task<List<DropDownViewModel>> GetDepartmentsForDropDownAsync(int contid)
         {
             return await _StateRepository.GetForDropDownAsync(contid);

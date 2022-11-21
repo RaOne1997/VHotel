@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MakeMuTrip.DataAccess;
 using MakeMuTrip.DataAccess.DTo;
 using MakeMuTrip.Services.Interface;
+using VHotel.DataAccess.DTo;
 
 namespace MakeMuTrip.Controllers
 {
@@ -24,7 +25,7 @@ namespace MakeMuTrip.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AirportDTO>>> GetAmenuitiesDTO()
+        public async Task<ActionResult<IEnumerable<AirportDTO>>> AirportList()
         {
             try
             {
@@ -35,7 +36,7 @@ namespace MakeMuTrip.Controllers
                     return Ok("NO record Found");
                 }
                 else
-                    return Ok(citys);
+                    return citys;
             }
             catch (Exception e)
             {
@@ -62,22 +63,24 @@ namespace MakeMuTrip.Controllers
 
        
         [HttpPut]
-        public async Task<IActionResult> PutAmenuitiesDTO(AirportDTO AirportDTO)
+        public async Task<ActionResult<ReturnResult>> PutAmenuitiesDTO([FromForm]AirportDTO AirportDTO)
         {
 
             try
             {
+
+            
                 await _airportServices.UpdateAsync(AirportDTO);
-                return Ok("Updated");
+                return new ReturnResult { isOk=true,Result="update"};
             }
             catch (Exception e)
             {
                 //_logger.LogError(e, "Error in GetAll");
-                return Problem("Error in GetAll" + e);
+                return new ReturnResult { isOk = false, Result = e.Message };
             }
 
 
-        }
+            }
 
         [HttpPost]
         public async Task<ActionResult<AirportDTO>> PostAmenuitiesDTO(AirportDTO AirportDTO)

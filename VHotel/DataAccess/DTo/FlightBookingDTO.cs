@@ -21,6 +21,7 @@ namespace MakeMuTrip.DataAccess.DTo
         public ICollection<CustomerinformationDTO> FlightCustomerDetails { get; set; }
     }
 
+  
 
     public class FlightBookingInputDTO : ViewModelBase
     {

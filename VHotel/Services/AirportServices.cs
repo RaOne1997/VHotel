@@ -21,6 +21,14 @@ namespace MakeMuTrip.Services
         }
         public async Task CreateAsync(AirportDTO modelDTO)
         {
+            if (modelDTO.AirportImageUplode != null)
+            {
+                await using var memorystring = new MemoryStream();
+                await modelDTO.AirportImageUplode.CopyToAsync(memorystring);
+                modelDTO.AirportImage = memorystring.ToArray();
+
+            }
+
             var airport = _mapper.Map<Airport>(modelDTO);
             await _airportRepository.CreateAsync(airport);
         }
@@ -63,6 +71,47 @@ namespace MakeMuTrip.Services
 
                 if (await _airportRepository.Exists((int)modelDTO.ID))
                 {
+
+                    if (modelDTO.AirportImageUplode != null)
+                    {
+                        await using var memorystring = new MemoryStream();
+                        await modelDTO.AirportImageUplode.CopyToAsync(memorystring);
+                        modelDTO.AirportImage = memorystring.ToArray();
+
+                    }
+
+                    var cityMaster = _mapper.Map<Airport>(modelDTO);
+                    await _airportRepository.UpdateAsync(cityMaster);
+
+                }
+            }
+            catch (Exception)
+            {
+
+            };
+        }
+
+
+
+
+        public async Task IsactiveornotAsync(AirportDTO modelDTO)
+        {
+            try
+            {
+
+                if (await _airportRepository.Exists((int)modelDTO.ID))
+                {
+
+                   
+
+                    if (modelDTO.AirportImageUplode != null)
+                    {
+                        await using var memorystring = new MemoryStream();
+                        await modelDTO.AirportImageUplode.CopyToAsync(memorystring);
+                        modelDTO.AirportImage = memorystring.ToArray();
+
+                    }
+
                     var cityMaster = _mapper.Map<Airport>(modelDTO);
                     await _airportRepository.UpdateAsync(cityMaster);
 
